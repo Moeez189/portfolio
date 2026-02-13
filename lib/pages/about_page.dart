@@ -101,7 +101,9 @@ class _AboutPageState extends State<AboutPage> {
                         ),
                       ),
                     ),
-                    const FooterSection(),
+                    FooterSection(
+                      onGetInTouchTap: () => context.go('/contact'),
+                    ),
                   ],
                 ),
               ],

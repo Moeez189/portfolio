@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../sections/about_section.dart';
-import '../sections/contact_section.dart';
 import '../sections/glass_navbar.dart';
 import '../sections/gradient_background.dart';
 import '../sections/hero_section.dart';
@@ -167,15 +166,11 @@ class _HomePageState extends State<HomePage> {
                       sectionId: AppStrings.sectionIdTestimonials,
                       child: const TestimonialsSection(),
                     ),
-                    SectionAnimator(
-                      sectionId: AppStrings.sectionIdContact,
-                      child: ContactSection(
-                        key: _contactKey,
-                        onGetInTouchTap: () =>
-                            context.go(AppStrings.routeContact),
-                      ),
+                    FooterSection(
+                      key: _contactKey,
+                      onGetInTouchTap: () =>
+                          context.go(AppStrings.routeContact),
                     ),
-                    const FooterSection(),
                   ],
                 ),
               ],

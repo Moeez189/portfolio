@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 import '../widgets/typewriter_text.dart';
 
 class HeroSection extends StatelessWidget {
@@ -34,7 +35,7 @@ class HeroSection extends StatelessWidget {
         children: [
           // Main Title - Animated Word by Word
           _AnimatedWordText(
-            text: 'Software Developer',
+            text: AppStrings.heroTitle,
             isDesktop: isDesktop,
             controller: animationController,
             baseDelay: 0,
@@ -43,7 +44,7 @@ class HeroSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           _AnimatedWordText(
-            text: 'Web & Mobile Applications',
+            text: AppStrings.heroSubTitle,
             isDesktop: isDesktop,
             controller: animationController,
             baseDelay: 300,
@@ -55,7 +56,7 @@ class HeroSection extends StatelessWidget {
           Container(
                 constraints: const BoxConstraints(maxWidth: 580),
                 child: Text(
-                  "I'm a software developer specializing in building sleek, functional web and mobile applications. With a passion for clean code and user-centric design, I turn ideas into digital experiences that work beautifully and deliver results.",
+                  AppStrings.heroDescription,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isDesktop ? 17 : 15,
@@ -188,7 +189,7 @@ class _HeroCtaButtonState extends State<_HeroCtaButton> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               child: TypewriterText(
-                text: 'Get in touch',
+                text: AppStrings.getInTouchButton,
                 active: _hovered,
                 style: TextStyle(
                   color: _hovered ? Colors.white : const Color(0xFF1A1A1A),

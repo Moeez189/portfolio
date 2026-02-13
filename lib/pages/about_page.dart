@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../constants/app_strings.dart';
 import '../sections/glass_navbar.dart';
 import '../sections/gradient_background.dart';
 import '../widgets/footer_section.dart';
@@ -57,7 +58,7 @@ class _AboutPageState extends State<AboutPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Turning ideas into digital reality — one line of code at a time.',
+                                AppStrings.aboutPageHeading,
                                 style: TextStyle(
                                   fontSize: isDesktop ? 52 : 34,
                                   fontWeight: FontWeight.w700,
@@ -87,7 +88,7 @@ class _AboutPageState extends State<AboutPage> {
                               ),
                               const SizedBox(height: 28),
                               Text(
-                                "Hi, I’m Muhammad Moeez, a software developer...",
+                                AppStrings.aboutPageDescription,
                                 style: TextStyle(
                                   fontSize: 16,
                                   height: 1.8,
@@ -110,23 +111,25 @@ class _AboutPageState extends State<AboutPage> {
           /// Navbar
           GlassNavbar(
             onLogoTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               url_fragment.setFragment('');
             }),
             onWorkTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment('work');
+                url_fragment.setFragment(AppStrings.fragmentWork);
               });
             }),
-            onAboutTap: () => _fadeOverlayThen(() => context.go('/about')),
+            onAboutTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeAbout)),
             onServicesTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment('services');
+                url_fragment.setFragment(AppStrings.fragmentServices);
               });
             }),
-            onContactTap: () => _fadeOverlayThen(() => context.go('/contact')),
+            onContactTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeContact)),
             onResumeTap: () {},
           ),
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../constants/app_strings.dart';
 import '../sections/glass_navbar.dart';
 import '../sections/gradient_background.dart';
 import '../widgets/footer_section.dart';
@@ -76,7 +77,7 @@ class _ContactPageState extends State<ContactPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Let's build your website together",
+                                AppStrings.contactPageHeading,
                                 style: TextStyle(
                                   fontSize: isDesktop ? 52 : 34,
                                   fontWeight: FontWeight.w700,
@@ -87,7 +88,7 @@ class _ContactPageState extends State<ContactPage> {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                "Have a project in mind or just want to say hello? I’d love to hear from you!",
+                                AppStrings.contactPageDescription,
                                 style: TextStyle(
                                   fontSize: 16,
                                   height: 1.8,
@@ -112,19 +113,19 @@ class _ContactPageState extends State<ContactPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      _fieldLabel("What's your name?"),
+                                      _fieldLabel(AppStrings.contactNameLabel),
                                       const SizedBox(height: 8),
                                       TextFormField(
                                         controller: _nameController,
                                         decoration: _inputDecoration(),
                                         validator: (v) =>
                                             (v == null || v.trim().isEmpty)
-                                            ? 'Required'
+                                            ? AppStrings.requiredError
                                             : null,
                                       ),
                                       const SizedBox(height: 18),
 
-                                      _fieldLabel('Email'),
+                                      _fieldLabel(AppStrings.contactEmailLabel),
                                       const SizedBox(height: 8),
                                       TextFormField(
                                         controller: _emailController,
@@ -133,62 +134,52 @@ class _ContactPageState extends State<ContactPage> {
                                             TextInputType.emailAddress,
                                         validator: (v) =>
                                             (v == null || v.trim().isEmpty)
-                                            ? 'Required'
+                                            ? AppStrings.requiredError
                                             : null,
                                       ),
                                       const SizedBox(height: 18),
 
-                                      _fieldLabel('Budget range'),
+                                      _fieldLabel(
+                                        AppStrings.contactBudgetLabel,
+                                      ),
                                       const SizedBox(height: 8),
                                       DropdownButtonFormField<String>(
                                         value: _budget,
                                         decoration: _inputDecoration(),
-                                        items: const [
-                                          DropdownMenuItem(
-                                            value: 'Under \$1k',
-                                            child: Text('Under \$1k'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: '\$1k - \$5k',
-                                            child: Text('\$1k - \$5k'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: '\$5k - \$10k',
-                                            child: Text('\$5k - \$10k'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: '\$10k+',
-                                            child: Text('\$10k+'),
-                                          ),
-                                        ],
+                                        items: AppStrings.contactBudgetOptions
+                                            .map(
+                                              (option) => DropdownMenuItem(
+                                                value: option,
+                                                child: Text(option),
+                                              ),
+                                            )
+                                            .toList(),
                                         onChanged: (v) =>
                                             setState(() => _budget = v),
                                       ),
                                       const SizedBox(height: 18),
 
                                       _fieldLabel(
-                                        'Do you have a current website?',
+                                        AppStrings.contactCurrentWebsiteLabel,
                                       ),
                                       const SizedBox(height: 8),
                                       DropdownButtonFormField<String>(
                                         value: _hasWebsite,
                                         decoration: _inputDecoration(),
-                                        items: const [
-                                          DropdownMenuItem(
-                                            value: 'Yes',
-                                            child: Text('Yes'),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: 'No',
-                                            child: Text('No'),
-                                          ),
-                                        ],
+                                        items: [AppStrings.yes, AppStrings.no]
+                                            .map(
+                                              (option) => DropdownMenuItem(
+                                                value: option,
+                                                child: Text(option),
+                                              ),
+                                            )
+                                            .toList(),
                                         onChanged: (v) =>
                                             setState(() => _hasWebsite = v),
                                       ),
                                       const SizedBox(height: 18),
 
-                                      _fieldLabel('How can I help you?'),
+                                      _fieldLabel(AppStrings.contactHelpLabel),
                                       const SizedBox(height: 8),
                                       TextFormField(
                                         controller: _messageController,
@@ -221,7 +212,7 @@ class _ContactPageState extends State<ContactPage> {
                                             ),
                                           ),
                                           child: const Text(
-                                            'Send',
+                                            AppStrings.sendButton,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -251,23 +242,25 @@ class _ContactPageState extends State<ContactPage> {
           /// Navbar
           GlassNavbar(
             onLogoTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               url_fragment.setFragment('');
             }),
             onWorkTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment('work');
+                url_fragment.setFragment(AppStrings.fragmentWork);
               });
             }),
-            onAboutTap: () => _fadeOverlayThen(() => context.go('/about')),
+            onAboutTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeAbout)),
             onServicesTap: () => _fadeOverlayThen(() {
-              context.go('/');
+              context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment('services');
+                url_fragment.setFragment(AppStrings.fragmentServices);
               });
             }),
-            onContactTap: () => _fadeOverlayThen(() => context.go('/contact')),
+            onContactTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeContact)),
             onResumeTap: () {},
           ),
 

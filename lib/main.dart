@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'app_router.dart';
+import 'constants/app_strings.dart';
 import 'providers/animation_provider.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class PortfolioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Muhammad Moeez - Software Engineer',
+      title: AppStrings.appTitle,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: const Color(0xFFFAF9F6),
         textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),

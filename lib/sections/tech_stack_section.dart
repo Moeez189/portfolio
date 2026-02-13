@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 
 class TechStackSection extends StatelessWidget {
   const TechStackSection({super.key});
@@ -21,7 +22,7 @@ class TechStackSection extends StatelessWidget {
           Row(
             children: [
               Text(
-                '### ',
+                AppStrings.subSectionPrefix,
                 style: TextStyle(
                   fontSize: isDesktop ? 28 : 22,
                   fontWeight: FontWeight.w600,
@@ -29,7 +30,7 @@ class TechStackSection extends StatelessWidget {
                 ),
               ),
               Text(
-                'My tech stack',
+                AppStrings.techStackTitle,
                 style: TextStyle(
                   fontSize: isDesktop ? 28 : 22,
                   fontWeight: FontWeight.w600,
@@ -44,7 +45,7 @@ class TechStackSection extends StatelessWidget {
           Container(
             constraints: const BoxConstraints(maxWidth: 600),
             child: Text(
-              "Building with: Flutter, React Native, Node.js, and more — tools that power modern, scalable solutions.",
+              AppStrings.techStackDescription,
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.grey[600],
@@ -61,39 +62,55 @@ class TechStackSection extends StatelessWidget {
             runSpacing: 16,
             children: [
               _buildTechIcon(
-                'Flutter',
+                AppStrings.techFlutter,
                 Icons.flutter_dash,
                 const Color(0xFF02569B),
               ),
-              _buildTechIcon('React', Icons.code, const Color(0xFF61DAFB)),
               _buildTechIcon(
-                'TypeScript',
+                AppStrings.techReact,
+                Icons.code,
+                const Color(0xFF61DAFB),
+              ),
+              _buildTechIcon(
+                AppStrings.techTypeScript,
                 Icons.code_rounded,
                 const Color(0xFF3178C6),
               ),
               _buildTechIcon(
-                'Firebase',
+                AppStrings.techFirebase,
                 Icons.local_fire_department,
                 const Color(0xFFFFA000),
               ),
               _buildTechIcon(
-                'Supabase',
+                AppStrings.techSupabase,
                 Icons.storage_rounded,
                 const Color(0xFF3ECF8E),
               ),
               _buildTechIcon(
-                'Node.js',
+                AppStrings.techNode,
                 Icons.developer_mode,
                 const Color(0xFF339933),
               ),
-              _buildTechIcon('Git', Icons.merge_type, const Color(0xFFF05032)),
               _buildTechIcon(
-                'VS Code',
+                AppStrings.techGit,
+                Icons.merge_type,
+                const Color(0xFFF05032),
+              ),
+              _buildTechIcon(
+                AppStrings.techVsCode,
                 Icons.edit_note,
                 const Color(0xFF007ACC),
               ),
-              _buildTechIcon('Android', Icons.android, const Color(0xFF3DDC84)),
-              _buildTechIcon('iOS', Icons.apple, const Color(0xFF000000)),
+              _buildTechIcon(
+                AppStrings.techAndroid,
+                Icons.android,
+                const Color(0xFF3DDC84),
+              ),
+              _buildTechIcon(
+                AppStrings.techIos,
+                Icons.apple,
+                const Color(0xFF000000),
+              ),
             ],
           ),
         ],

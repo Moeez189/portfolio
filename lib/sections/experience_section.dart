@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/app_strings.dart';
 
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({super.key});
@@ -9,17 +10,18 @@ class ExperienceSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 120),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
-            "Experience",
+            AppStrings.experienceTitle,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 40),
-          Text("Code Upscale LLC – React Native Developer (2024–Present)"),
-          SizedBox(height: 20),
-          Text("Skynet Solutionz – Android Developer (2023–2024)"),
-          SizedBox(height: 20),
-          Text("EvolversTech – Android & React Native Developer"),
+          const SizedBox(height: 40),
+          ...AppStrings.experienceItems.map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text(item),
+            ),
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 
 class AboutSection extends StatelessWidget {
   final VoidCallback? onMoreAboutTap;
@@ -33,7 +34,7 @@ class AboutSection extends StatelessWidget {
           Row(
                 children: [
                   Text(
-                    '## ',
+                    AppStrings.sectionPrefix,
                     style: TextStyle(
                       fontSize: isDesktop ? 42 : 32,
                       fontWeight: FontWeight.w700,
@@ -41,7 +42,7 @@ class AboutSection extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'About me',
+                    AppStrings.aboutSectionTitle,
                     style: TextStyle(
                       fontSize: isDesktop ? 42 : 32,
                       fontWeight: FontWeight.w700,
@@ -64,7 +65,7 @@ class AboutSection extends StatelessWidget {
           Container(
                 constraints: const BoxConstraints(maxWidth: 600),
                 child: Text(
-                  "Let's build something amazing together. Read more about my journey or book a call to discuss your next project!",
+                  AppStrings.aboutSectionDescription,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -152,7 +153,7 @@ class AboutSection extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    'Muhammad Moeez',
+                    AppStrings.aboutProfileName,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -170,7 +171,7 @@ class AboutSection extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Lahore, Pakistan',
+                        AppStrings.aboutProfileLocation,
                         style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                       ),
                     ],
@@ -179,7 +180,7 @@ class AboutSection extends StatelessWidget {
                   TextButton(
                     onPressed: onMoreAboutTap,
                     child: Text(
-                      'More about me →',
+                      AppStrings.aboutMoreButton,
                       style: TextStyle(
                         color: Colors.grey[700],
                         fontWeight: FontWeight.w500,
@@ -217,7 +218,7 @@ class AboutSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Book a call with me',
+                AppStrings.aboutCallTitle,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -226,7 +227,7 @@ class AboutSection extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                "Let's have a chat about your next project or idea!",
+                AppStrings.aboutCallDescription,
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -251,7 +252,7 @@ class AboutSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Schedule a meeting',
+                        AppStrings.aboutScheduleMeeting,
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ],
@@ -271,7 +272,7 @@ class AboutSection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text('Book a call'),
+                  child: const Text(AppStrings.aboutBookCallButton),
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 
 class ServicesSection extends StatelessWidget {
   final AnimationController? animationController;
@@ -31,7 +32,7 @@ class ServicesSection extends StatelessWidget {
           Row(
                 children: [
                   Text(
-                    '## ',
+                    AppStrings.sectionPrefix,
                     style: TextStyle(
                       fontSize: isDesktop ? 42 : 32,
                       fontWeight: FontWeight.w700,
@@ -39,7 +40,7 @@ class ServicesSection extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Services',
+                    AppStrings.servicesSectionTitle,
                     style: TextStyle(
                       fontSize: isDesktop ? 42 : 32,
                       fontWeight: FontWeight.w700,
@@ -61,7 +62,7 @@ class ServicesSection extends StatelessWidget {
           Container(
                 constraints: const BoxConstraints(maxWidth: 600),
                 child: Text(
-                  "Creating tailored digital solutions that solve real-world problems. From concept to launch, I bring ideas to life with precision and creativity.",
+                  AppStrings.servicesSectionDescription,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -90,9 +91,8 @@ class ServicesSection extends StatelessWidget {
             children: [
               _buildServiceCard(
                 icon: Icons.web_rounded,
-                title: 'Web Development',
-                description:
-                    'Building responsive, high-performance websites tailored to your needs. From sleek portfolios to robust e-commerce platforms, I create digital experiences that work seamlessly across devices.',
+                title: AppStrings.webDevelopmentTitle,
+                description: AppStrings.webDevelopmentDescription,
                 color: const Color(0xFFE6F0FF),
                 delay: 0,
                 controller: animationController,
@@ -101,9 +101,8 @@ class ServicesSection extends StatelessWidget {
               ),
               _buildServiceCard(
                 icon: Icons.phone_iphone_rounded,
-                title: 'Mobile App Development',
-                description:
-                    'Designing and developing intuitive mobile apps for iOS and Android. Whether it\'s a startup idea or an enterprise solution, I bring your vision to life with clean code and user-friendly interfaces.',
+                title: AppStrings.mobileAppDevelopmentTitle,
+                description: AppStrings.mobileAppDevelopmentDescription,
                 color: const Color(0xFFFFF4E6),
                 delay: 150,
                 controller: animationController,
@@ -112,9 +111,8 @@ class ServicesSection extends StatelessWidget {
               ),
               _buildServiceCard(
                 icon: Icons.shopping_cart_rounded,
-                title: 'E-Commerce Development',
-                description:
-                    'Creating powerful, scalable e-commerce websites that drive sales and enhance user experience. From product listings to secure payment gateways, I build platforms that grow your business.',
+                title: AppStrings.ecommerceDevelopmentTitle,
+                description: AppStrings.ecommerceDevelopmentDescription,
                 color: const Color(0xFFE8F4EA),
                 delay: 300,
                 controller: animationController,
@@ -123,9 +121,8 @@ class ServicesSection extends StatelessWidget {
               ),
               _buildServiceCard(
                 icon: Icons.settings_rounded,
-                title: 'Custom Software Solutions',
-                description:
-                    'Developing bespoke software to solve unique business challenges. From automation tools to scalable systems, I deliver tailored solutions that drive efficiency and growth.',
+                title: AppStrings.customSoftwareSolutionsTitle,
+                description: AppStrings.customSoftwareSolutionsDescription,
                 color: const Color(0xFFF4E6FF),
                 delay: 450,
                 controller: animationController,

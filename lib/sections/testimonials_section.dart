@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 
 class TestimonialsSection extends StatefulWidget {
   const TestimonialsSection({super.key});
@@ -12,26 +13,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
   final PageController _pageController = PageController(viewportFraction: 0.85);
   int _currentPage = 0;
 
-  final List<Map<String, String>> testimonials = [
-    {
-      'quote':
-          "Working with them was a game-changer! Their attention to detail and ability to deliver on time made our project a huge success. Highly recommend!",
-      'name': 'Ahmed Khan',
-      'role': 'Product Owner @TechFlow',
-    },
-    {
-      'quote':
-          "The app they built for us is not only stunning but also incredibly functional. They truly understand how to balance design and performance.",
-      'name': 'Sarah Williams',
-      'role': 'Founder @StartupX',
-    },
-    {
-      'quote':
-          "Exceptional work! The mobile application exceeded our expectations in terms of quality and delivery timeline. A true professional.",
-      'name': 'Michael Chen',
-      'role': 'CTO @InnovateCo',
-    },
-  ];
+  final List<TestimonialItem> testimonials = AppStrings.testimonials;
 
   @override
   void dispose() {
@@ -65,7 +47,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
               ),
               Flexible(
                 child: Text(
-                  'Always happy to help creative people launch their projects',
+                  AppStrings.testimonialsTitle,
                   style: TextStyle(
                     fontSize: isDesktop ? 42 : 28,
                     fontWeight: FontWeight.w700,
@@ -92,9 +74,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
               itemCount: testimonials.length,
               itemBuilder: (context, index) {
                 return _buildTestimonialCard(
-                  quote: testimonials[index]['quote']!,
-                  name: testimonials[index]['name']!,
-                  role: testimonials[index]['role']!,
+                  quote: testimonials[index].quote,
+                  name: testimonials[index].name,
+                  role: testimonials[index].role,
                   isActive: index == _currentPage,
                 );
               },

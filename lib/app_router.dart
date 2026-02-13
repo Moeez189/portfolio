@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'constants/app_strings.dart';
 import 'pages/about_page.dart';
 import 'pages/contact_page.dart';
 import 'pages/home_page.dart';
@@ -39,17 +40,17 @@ final GoRouter appRouter = GoRouter(
   debugLogDiagnostics: false,
   routes: <RouteBase>[
     GoRoute(
-      path: '/',
+      path: AppStrings.routeHome,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           _fadePage(state: state, child: const HomePage()),
     ),
     GoRoute(
-      path: '/about',
+      path: AppStrings.routeAbout,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           _fadePage(state: state, child: const AboutPage()),
     ),
     GoRoute(
-      path: '/contact',
+      path: AppStrings.routeContact,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           _fadePage(state: state, child: const ContactPage()),
     ),

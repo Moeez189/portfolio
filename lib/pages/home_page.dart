@@ -58,13 +58,13 @@ class _HomePageState extends State<HomePage> {
     if (!mounted) return;
 
     switch (fragment) {
-      case 'work':
+      case AppStrings.fragmentWork:
         _scrollToSection(_workKey);
         break;
-      case 'services':
+      case AppStrings.fragmentServices:
         _scrollToSection(_servicesKey);
         break;
-      case 'contact':
+      case AppStrings.fragmentContact:
         _scrollToSection(_contactKey);
         break;
       default:
@@ -112,18 +112,20 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const SizedBox(height: 100),
                     SectionAnimator(
-                      sectionId: 'hero',
+                      sectionId: AppStrings.sectionIdHero,
                       customAnimationBuilder: (_, controller) => HeroSection(
-                        onGetInTouchTap: () => context.go('/contact'),
+                        onGetInTouchTap: () =>
+                            context.go(AppStrings.routeContact),
                         animationController: controller,
                       ),
                       child: HeroSection(
-                        onGetInTouchTap: () => context.go('/contact'),
+                        onGetInTouchTap: () =>
+                            context.go(AppStrings.routeContact),
                         animate: false,
                       ),
                     ),
                     SectionAnimator(
-                      sectionId: 'projects',
+                      sectionId: AppStrings.sectionIdProjects,
                       customAnimationBuilder: (_, controller) =>
                           ProjectsSection(
                             key: _workKey,
@@ -132,28 +134,28 @@ class _HomePageState extends State<HomePage> {
                       child: ProjectsSection(key: _workKey, animate: false),
                     ),
                     SectionAnimator(
-                      sectionId: 'trusted_by',
+                      sectionId: AppStrings.sectionIdTrustedBy,
                       child: const TrustedBySection(),
                     ),
                     SectionAnimator(
-                      sectionId: 'about',
+                      sectionId: AppStrings.sectionIdAbout,
                       customAnimationBuilder: (_, controller) => AboutSection(
                         key: _aboutKey,
-                        onMoreAboutTap: () => context.go('/about'),
+                        onMoreAboutTap: () => context.go(AppStrings.routeAbout),
                         animationController: controller,
                       ),
                       child: AboutSection(
                         key: _aboutKey,
-                        onMoreAboutTap: () => context.go('/about'),
+                        onMoreAboutTap: () => context.go(AppStrings.routeAbout),
                         animate: false,
                       ),
                     ),
                     SectionAnimator(
-                      sectionId: 'tech_stack',
+                      sectionId: AppStrings.sectionIdTechStack,
                       child: const TechStackSection(),
                     ),
                     SectionAnimator(
-                      sectionId: 'services',
+                      sectionId: AppStrings.sectionIdServices,
                       customAnimationBuilder: (_, controller) =>
                           ServicesSection(
                             key: _servicesKey,
@@ -162,14 +164,15 @@ class _HomePageState extends State<HomePage> {
                       child: ServicesSection(key: _servicesKey, animate: false),
                     ),
                     SectionAnimator(
-                      sectionId: 'testimonials',
+                      sectionId: AppStrings.sectionIdTestimonials,
                       child: const TestimonialsSection(),
                     ),
                     SectionAnimator(
-                      sectionId: 'contact',
+                      sectionId: AppStrings.sectionIdContact,
                       child: ContactSection(
                         key: _contactKey,
-                        onGetInTouchTap: () => context.go('/contact'),
+                        onGetInTouchTap: () =>
+                            context.go(AppStrings.routeContact),
                       ),
                     ),
                     const FooterSection(),
@@ -181,7 +184,7 @@ class _HomePageState extends State<HomePage> {
           GlassNavbar(
             onLogoTap: () {
               _fadeOverlayThen(() {
-                context.go('/');
+                context.go(AppStrings.routeHome);
                 url_fragment.setFragment('');
                 _scrollController.animateTo(
                   0,
@@ -191,17 +194,19 @@ class _HomePageState extends State<HomePage> {
               });
             },
             onWorkTap: () => _fadeOverlayThen(() {
-              url_fragment.setFragment('work');
+              url_fragment.setFragment(AppStrings.fragmentWork);
               _scrollToSection(_workKey);
             }),
-            onAboutTap: () => _fadeOverlayThen(() => context.go('/about')),
+            onAboutTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeAbout)),
             onServicesTap: () {
               _fadeOverlayThen(() {
-                url_fragment.setFragment('services');
+                url_fragment.setFragment(AppStrings.fragmentServices);
                 _scrollToSection(_servicesKey);
               });
             },
-            onContactTap: () => _fadeOverlayThen(() => context.go('/contact')),
+            onContactTap: () =>
+                _fadeOverlayThen(() => context.go(AppStrings.routeContact)),
             onResumeTap: () {},
           ),
           IgnorePointer(

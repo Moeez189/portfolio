@@ -147,18 +147,24 @@ class _NavShell extends StatelessWidget {
                 const Spacer(),
                 Row(
                   children: [
-                    _NavItem(label: 'Work', onTap: onWorkTap),
+                    _NavItem(label: AppStrings.workLink, onTap: onWorkTap),
                     const SizedBox(width: 32),
-                    _NavItem(label: 'About', onTap: onAboutTap),
+                    _NavItem(label: AppStrings.aboutLink, onTap: onAboutTap),
                     const SizedBox(width: 32),
-                    _NavItem(label: 'Services', onTap: onServicesTap),
+                    _NavItem(
+                      label: AppStrings.servicesLink,
+                      onTap: onServicesTap,
+                    ),
                     const SizedBox(width: 32),
-                    _NavItem(label: 'Contact', onTap: onContactTap),
+                    _NavItem(
+                      label: AppStrings.contactLink,
+                      onTap: onContactTap,
+                    ),
                   ],
                 ),
                 const Spacer(),
                 _PillButton(
-                  label: 'Resume',
+                  label: AppStrings.resumeLink,
                   onTap: onResumeTap,
                   background: const Color(0xFFFEEC81),
                   foreground: const Color(0xFF1A1A1A),
@@ -166,7 +172,7 @@ class _NavShell extends StatelessWidget {
               ] else ...[
                 const Spacer(),
                 _PillButton(
-                  label: 'Contact',
+                  label: AppStrings.contactLink,
                   onTap: onContactTap,
                   background: const Color(0xFFFEEC81),
                   foreground: const Color(0xFF1A1A1A),
@@ -489,28 +495,28 @@ class _MobileMenu extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _MobileMenuItem(
-                      label: 'Work',
+                      label: AppStrings.workLink,
                       onTap: () {
                         onClose();
                         onWorkTap();
                       },
                     ),
                     _MobileMenuItem(
-                      label: 'About',
+                      label: AppStrings.aboutLink,
                       onTap: () {
                         onClose();
                         onAboutTap();
                       },
                     ),
                     _MobileMenuItem(
-                      label: 'Services',
+                      label: AppStrings.servicesLink,
                       onTap: () {
                         onClose();
                         onServicesTap();
                       },
                     ),
                     _MobileMenuItem(
-                      label: 'Contact',
+                      label: AppStrings.contactLink,
                       onTap: () {
                         onClose();
                         onContactTap();
@@ -518,7 +524,7 @@ class _MobileMenu extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     _MobilePrimary(
-                      label: 'Resume',
+                      label: AppStrings.resumeLink,
                       onTap: () {
                         onClose();
                         onResumeTap();

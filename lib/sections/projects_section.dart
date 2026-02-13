@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/app_strings.dart';
 
 class ProjectsSection extends StatelessWidget {
   final AnimationController? animationController;
@@ -30,9 +31,8 @@ class ProjectsSection extends StatelessWidget {
               children: [
                 Expanded(
                   child: _buildProjectCard(
-                    title: 'Analytics Dashboard',
-                    description:
-                        'A data-driven dashboard for tracking key metrics. Intuitive interface, real-time updates, and widgets for businesses.',
+                    title: AppStrings.analyticsDashboardTitle,
+                    description: AppStrings.analyticsDashboardDescription,
                     gradientColors: const [
                       Color(0xFFB8E6B8),
                       Color(0xFF90EE90),
@@ -47,9 +47,8 @@ class ProjectsSection extends StatelessWidget {
                 const SizedBox(width: 20),
                 Expanded(
                   child: _buildProjectCard(
-                    title: 'Eyewear E-Commerce Site',
-                    description:
-                        'An immersive online store for a modern eyewear brand. Seamless navigation, and a personalized shopping experience.',
+                    title: AppStrings.eyewearEcommerceTitle,
+                    description: AppStrings.eyewearEcommerceDescription,
                     gradientColors: const [
                       Color(0xFFFFE066),
                       Color(0xFFFFD700),
@@ -64,9 +63,8 @@ class ProjectsSection extends StatelessWidget {
                 const SizedBox(width: 20),
                 Expanded(
                   child: _buildProjectCard(
-                    title: 'FreshPages',
-                    description:
-                        'A high-conversion landing page built for a SaaS startup. Clean layout, bold visuals, and a focus on driving user action.',
+                    title: AppStrings.freshPagesTitle,
+                    description: AppStrings.freshPagesDescription,
                     gradientColors: const [
                       Color(0xFFFFB366),
                       Color(0xFFFF9933),
@@ -83,9 +81,8 @@ class ProjectsSection extends StatelessWidget {
           : Column(
               children: [
                 _buildProjectCard(
-                  title: 'Analytics Dashboard',
-                  description:
-                      'A data-driven dashboard for tracking key metrics. Intuitive interface, real-time updates, and widgets for businesses.',
+                  title: AppStrings.analyticsDashboardTitle,
+                  description: AppStrings.analyticsDashboardDescription,
                   gradientColors: const [Color(0xFFB8E6B8), Color(0xFF90EE90)],
                   mockupType: MockupType.dashboard,
                   delay: 0,
@@ -95,9 +92,8 @@ class ProjectsSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 _buildProjectCard(
-                  title: 'Eyewear E-Commerce Site',
-                  description:
-                      'An immersive online store for a modern eyewear brand. Seamless navigation, and a personalized shopping experience.',
+                  title: AppStrings.eyewearEcommerceTitle,
+                  description: AppStrings.eyewearEcommerceDescription,
                   gradientColors: const [Color(0xFFFFE066), Color(0xFFFFD700)],
                   mockupType: MockupType.ecommerce,
                   delay: 100,
@@ -107,9 +103,8 @@ class ProjectsSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 _buildProjectCard(
-                  title: 'FreshPages',
-                  description:
-                      'A high-conversion landing page built for a SaaS startup. Clean layout, bold visuals, and a focus on driving user action.',
+                  title: AppStrings.freshPagesTitle,
+                  description: AppStrings.freshPagesDescription,
                   gradientColors: const [Color(0xFFFFB366), Color(0xFFFF9933)],
                   mockupType: MockupType.landing,
                   delay: 200,
@@ -266,9 +261,15 @@ class ProjectsSection extends StatelessWidget {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    _dashboardMetric('Total', '12,345'),
+                    _dashboardMetric(
+                      AppStrings.projectMetricTotalLabel,
+                      AppStrings.projectMetricTotalValue,
+                    ),
                     const SizedBox(width: 12),
-                    _dashboardMetric('Active', '8,234'),
+                    _dashboardMetric(
+                      AppStrings.projectMetricActiveLabel,
+                      AppStrings.projectMetricActiveValue,
+                    ),
                   ],
                 ),
               ],
@@ -299,7 +300,7 @@ class ProjectsSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Eyewear',
+                  AppStrings.projectEyewearLabel,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,

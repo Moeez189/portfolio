@@ -32,6 +32,8 @@ class AppStrings {
   static const String servicesLink = 'Services';
   static const String contactLink = 'Contact';
   static const String resumeLink = 'Resume';
+  static const String resumeUrl =
+      'https://www.canva.com/design/DAF1LSIbRrA/GQJJUHEX_HbZko-bHkYDOw/view?utm_content=DAF1LSIbRrA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8a941f5d1f';
   static const String name = 'M Moeez';
 
   // Hero Section

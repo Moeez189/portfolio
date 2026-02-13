@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../sections/about_section.dart';
 import '../sections/glass_navbar.dart';
@@ -202,7 +203,12 @@ class _HomePageState extends State<HomePage> {
             },
             onContactTap: () =>
                 _fadeOverlayThen(() => context.go(AppStrings.routeContact)),
-            onResumeTap: () {},
+            onResumeTap: () async {
+              final Uri uri = Uri.parse(AppStrings.resumeUrl);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              }
+            },
           ),
           IgnorePointer(
             ignoring: !_navFading,

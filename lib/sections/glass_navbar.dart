@@ -240,7 +240,7 @@ class _BrandButtonState extends State<_BrandButton> {
             ),
             child: Row(
               children: [
-                Icon(Icons.settings, size: 18, color: Colors.grey[700]),
+                Icon(Icons.catching_pokemon, size: 24),
                 const SizedBox(width: 8),
                 const Text(
                   AppStrings.name,

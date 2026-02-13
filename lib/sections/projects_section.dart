@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class ProjectsSection extends StatelessWidget {
-  const ProjectsSection({super.key});
+  final AnimationController? animationController;
+  final bool animate;
+
+  const ProjectsSection({
+    super.key,
+    this.animationController,
+    this.animate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 900;
+
+    final double? target = animate ? null : 1.0;
+    final bool autoPlay = animate && (animationController == null);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -29,6 +39,9 @@ class ProjectsSection extends StatelessWidget {
                     ],
                     mockupType: MockupType.dashboard,
                     delay: 0,
+                    controller: animationController,
+                    autoPlay: autoPlay,
+                    target: target,
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -42,7 +55,10 @@ class ProjectsSection extends StatelessWidget {
                       Color(0xFFFFD700),
                     ],
                     mockupType: MockupType.ecommerce,
-                    delay: 100,
+                    delay: 150,
+                    controller: animationController,
+                    autoPlay: autoPlay,
+                    target: target,
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -56,7 +72,10 @@ class ProjectsSection extends StatelessWidget {
                       Color(0xFFFF9933),
                     ],
                     mockupType: MockupType.landing,
-                    delay: 200,
+                    delay: 300,
+                    controller: animationController,
+                    autoPlay: autoPlay,
+                    target: target,
                   ),
                 ),
               ],
@@ -70,6 +89,9 @@ class ProjectsSection extends StatelessWidget {
                   gradientColors: const [Color(0xFFB8E6B8), Color(0xFF90EE90)],
                   mockupType: MockupType.dashboard,
                   delay: 0,
+                  controller: animationController,
+                  autoPlay: autoPlay,
+                  target: target,
                 ),
                 const SizedBox(height: 20),
                 _buildProjectCard(
@@ -79,6 +101,9 @@ class ProjectsSection extends StatelessWidget {
                   gradientColors: const [Color(0xFFFFE066), Color(0xFFFFD700)],
                   mockupType: MockupType.ecommerce,
                   delay: 100,
+                  controller: animationController,
+                  autoPlay: autoPlay,
+                  target: target,
                 ),
                 const SizedBox(height: 20),
                 _buildProjectCard(
@@ -88,6 +113,9 @@ class ProjectsSection extends StatelessWidget {
                   gradientColors: const [Color(0xFFFFB366), Color(0xFFFF9933)],
                   mockupType: MockupType.landing,
                   delay: 200,
+                  controller: animationController,
+                  autoPlay: autoPlay,
+                  target: target,
                 ),
               ],
             ),
@@ -100,6 +128,9 @@ class ProjectsSection extends StatelessWidget {
     required List<Color> gradientColors,
     required MockupType mockupType,
     required int delay,
+    AnimationController? controller,
+    bool autoPlay = true,
+    double? target,
   }) {
     return _HoverPress(
           onTap: () {},
@@ -170,12 +201,12 @@ class ProjectsSection extends StatelessWidget {
             );
           },
         )
-        .animate()
+        .animate(controller: controller, autoPlay: autoPlay, target: target)
         .fadeIn(
           delay: Duration(milliseconds: delay),
-          duration: 600.ms,
+          duration: 800.ms,
         )
-        .slideY(begin: 0.05);
+        .slideY(begin: 0.1, duration: 800.ms);
   }
 
   Widget _buildMockup(MockupType type) {

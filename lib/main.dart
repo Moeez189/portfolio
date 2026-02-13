@@ -7,9 +7,7 @@ import 'providers/animation_provider.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AnimationProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => AnimationProvider())],
       child: const PortfolioApp(),
     ),
   );

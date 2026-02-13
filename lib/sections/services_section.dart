@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class ServicesSection extends StatelessWidget {
-  const ServicesSection({super.key});
+  final AnimationController? animationController;
+  final bool animate;
+
+  const ServicesSection({
+    super.key,
+    this.animationController,
+    this.animate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 900;
+
+    final double? target = animate ? null : 1.0;
+    final bool autoPlay = animate && (animationController == null);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -19,39 +29,53 @@ class ServicesSection extends StatelessWidget {
         children: [
           // Section Title
           Row(
-            children: [
-              Text(
-                '## ',
-                style: TextStyle(
-                  fontSize: isDesktop ? 42 : 32,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.grey[400],
-                ),
-              ),
-              Text(
-                'Services',
-                style: TextStyle(
-                  fontSize: isDesktop ? 42 : 32,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1A1A1A),
-                ),
-              ),
-            ],
-          ).animate().fadeIn(duration: 600.ms),
+                children: [
+                  Text(
+                    '## ',
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  Text(
+                    'Services',
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1A1A1A),
+                    ),
+                  ),
+                ],
+              )
+              .animate(
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
 
           const SizedBox(height: 16),
 
           Container(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child: Text(
-              "Creating tailored digital solutions that solve real-world problems. From concept to launch, I bring ideas to life with precision and creativity.",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-                height: 1.6,
-              ),
-            ),
-          ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Text(
+                  "Creating tailored digital solutions that solve real-world problems. From concept to launch, I bring ideas to life with precision and creativity.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    height: 1.6,
+                  ),
+                ),
+              )
+              .animate(
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(delay: 200.ms, duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
 
           const SizedBox(height: 60),
 
@@ -71,6 +95,9 @@ class ServicesSection extends StatelessWidget {
                     'Building responsive, high-performance websites tailored to your needs. From sleek portfolios to robust e-commerce platforms, I create digital experiences that work seamlessly across devices.',
                 color: const Color(0xFFE6F0FF),
                 delay: 0,
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
               ),
               _buildServiceCard(
                 icon: Icons.phone_iphone_rounded,
@@ -78,7 +105,10 @@ class ServicesSection extends StatelessWidget {
                 description:
                     'Designing and developing intuitive mobile apps for iOS and Android. Whether it\'s a startup idea or an enterprise solution, I bring your vision to life with clean code and user-friendly interfaces.',
                 color: const Color(0xFFFFF4E6),
-                delay: 100,
+                delay: 150,
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
               ),
               _buildServiceCard(
                 icon: Icons.shopping_cart_rounded,
@@ -86,7 +116,10 @@ class ServicesSection extends StatelessWidget {
                 description:
                     'Creating powerful, scalable e-commerce websites that drive sales and enhance user experience. From product listings to secure payment gateways, I build platforms that grow your business.',
                 color: const Color(0xFFE8F4EA),
-                delay: 200,
+                delay: 300,
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
               ),
               _buildServiceCard(
                 icon: Icons.settings_rounded,
@@ -94,7 +127,10 @@ class ServicesSection extends StatelessWidget {
                 description:
                     'Developing bespoke software to solve unique business challenges. From automation tools to scalable systems, I deliver tailored solutions that drive efficiency and growth.',
                 color: const Color(0xFFF4E6FF),
-                delay: 300,
+                delay: 450,
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
               ),
             ],
           ),
@@ -109,6 +145,9 @@ class ServicesSection extends StatelessWidget {
     required String description,
     required Color color,
     required int delay,
+    AnimationController? controller,
+    bool autoPlay = true,
+    double? target,
   }) {
     return _ServiceHoverPress(
           builder: (hovered, pressed) {
@@ -176,12 +215,12 @@ class ServicesSection extends StatelessWidget {
             );
           },
         )
-        .animate()
+        .animate(controller: controller, autoPlay: autoPlay, target: target)
         .fadeIn(
-          delay: Duration(milliseconds: delay + 300),
-          duration: 600.ms,
+          delay: Duration(milliseconds: delay),
+          duration: 800.ms,
         )
-        .slideY(begin: 0.1);
+        .slideY(begin: 0.1, duration: 800.ms);
   }
 }
 

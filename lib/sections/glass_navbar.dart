@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:moeez_portfolio/constants/app_strings.dart';
+
+import '../widgets/typewriter_text.dart';
 
 class GlassNavbar extends StatefulWidget {
   final VoidCallback onLogoTap;
@@ -234,7 +237,7 @@ class _BrandButtonState extends State<_BrandButton> {
                 Icon(Icons.settings, size: 18, color: Colors.grey[700]),
                 const SizedBox(width: 8),
                 const Text(
-                  'Niika',
+                  AppStrings.name,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -327,12 +330,13 @@ class _PillButtonState extends State<_PillButton> {
 
   @override
   Widget build(BuildContext context) {
-    final bg = _hovered
-        ? Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.12),
-            widget.background,
-          )
-        : widget.background;
+    // Normal: background from props.
+    // Hover: Black (0xFF1A1A1A).
+    final bg = _hovered ? const Color(0xFF1A1A1A) : widget.background;
+
+    // Normal: foreground from props.
+    // Hover: White.
+    final fg = _hovered ? Colors.white : widget.foreground;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -358,17 +362,18 @@ class _PillButtonState extends State<_PillButton> {
               boxShadow: _hovered
                   ? [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.08),
+                        color: Colors.black.withValues(alpha: 0.14),
                         blurRadius: 18,
                         offset: const Offset(0, 10),
                       ),
                     ]
                   : null,
             ),
-            child: Text(
-              widget.label,
+            child: TypewriterText(
+              text: widget.label,
+              active: _hovered,
               style: TextStyle(
-                color: widget.foreground,
+                color: fg,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -601,6 +606,10 @@ class _MobilePrimaryState extends State<_MobilePrimary> {
 
   @override
   Widget build(BuildContext context) {
+    // Current yellow or black on hover
+    final bg = _hovered ? const Color(0xFF1A1A1A) : const Color(0xFFFEEC81);
+    final fg = _hovered ? Colors.white : const Color(0xFF1A1A1A);
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
@@ -620,18 +629,16 @@ class _MobilePrimaryState extends State<_MobilePrimary> {
             duration: const Duration(milliseconds: 140),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              color: _hovered
-                  ? const Color(0xFFFEEC81)
-                  : const Color(0xFFFEEC81),
+              color: bg,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Text(
-              widget.label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
+            child: TypewriterText(
+              text: widget.label,
+              active: _hovered,
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF1A1A1A),
+                color: fg,
               ),
             ),
           ),

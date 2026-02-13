@@ -11,6 +11,8 @@ import '../sections/services_section.dart';
 import '../sections/tech_stack_section.dart';
 import '../sections/testimonials_section.dart';
 import '../widgets/section_animator.dart';
+import '../widgets/footer_section.dart';
+import '../constants/app_strings.dart';
 import '../utils/url_fragment.dart' as url_fragment;
 
 class HomePage extends StatefulWidget {
@@ -109,30 +111,68 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     const SizedBox(height: 100),
-                    HeroSection(onGetInTouchTap: () => context.go('/contact')),
-                    ProjectsSection(key: _workKey),
-                    const TrustedBySection(),
-                    AboutSection(
-                      key: _aboutKey,
-                      onMoreAboutTap: () => context.go('/about'),
+                    SectionAnimator(
+                      sectionId: 'hero',
+                      customAnimationBuilder: (_, controller) => HeroSection(
+                        onGetInTouchTap: () => context.go('/contact'),
+                        animationController: controller,
+                      ),
+                      child: HeroSection(
+                        onGetInTouchTap: () => context.go('/contact'),
+                        animate: false,
+                      ),
                     ),
-                    const TechStackSection(),
-                    ServicesSection(key: _servicesKey),
-                    const TestimonialsSection(),
-                    ContactSection(
-                      key: _contactKey,
-                      onGetInTouchTap: () => context.go('/contact'),
-                      onWorkTap: () {
-                        url_fragment.setFragment('work');
-                        _scrollToSection(_workKey);
-                      },
-                      onAboutTap: () => context.go('/about'),
-                      onServicesTap: () {
-                        url_fragment.setFragment('services');
-                        _scrollToSection(_servicesKey);
-                      },
-                      onContactTap: () => context.go('/contact'),
+                    SectionAnimator(
+                      sectionId: 'projects',
+                      customAnimationBuilder: (_, controller) =>
+                          ProjectsSection(
+                            key: _workKey,
+                            animationController: controller,
+                          ),
+                      child: ProjectsSection(key: _workKey, animate: false),
                     ),
+                    SectionAnimator(
+                      sectionId: 'trusted_by',
+                      child: const TrustedBySection(),
+                    ),
+                    SectionAnimator(
+                      sectionId: 'about',
+                      customAnimationBuilder: (_, controller) => AboutSection(
+                        key: _aboutKey,
+                        onMoreAboutTap: () => context.go('/about'),
+                        animationController: controller,
+                      ),
+                      child: AboutSection(
+                        key: _aboutKey,
+                        onMoreAboutTap: () => context.go('/about'),
+                        animate: false,
+                      ),
+                    ),
+                    SectionAnimator(
+                      sectionId: 'tech_stack',
+                      child: const TechStackSection(),
+                    ),
+                    SectionAnimator(
+                      sectionId: 'services',
+                      customAnimationBuilder: (_, controller) =>
+                          ServicesSection(
+                            key: _servicesKey,
+                            animationController: controller,
+                          ),
+                      child: ServicesSection(key: _servicesKey, animate: false),
+                    ),
+                    SectionAnimator(
+                      sectionId: 'testimonials',
+                      child: const TestimonialsSection(),
+                    ),
+                    SectionAnimator(
+                      sectionId: 'contact',
+                      child: ContactSection(
+                        key: _contactKey,
+                        onGetInTouchTap: () => context.go('/contact'),
+                      ),
+                    ),
+                    const FooterSection(),
                   ],
                 ),
               ],
@@ -191,7 +231,7 @@ class TrustedBySection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Trusted by',
+            AppStrings.trustedByTitle,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[600],
@@ -203,13 +243,9 @@ class TrustedBySection extends StatelessWidget {
             spacing: 50,
             runSpacing: 20,
             alignment: WrapAlignment.center,
-            children: [
-              _companyLogo('Code Upscale'),
-              _companyLogo('Skynet'),
-              _companyLogo('EvolversTech'),
-              _companyLogo('StartupX'),
-              _companyLogo('TechFlow'),
-            ],
+            children: AppStrings.trustedByCompanies
+                .map((name) => _companyLogo(name))
+                .toList(),
           ),
         ],
       ),

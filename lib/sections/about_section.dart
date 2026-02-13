@@ -3,13 +3,23 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 class AboutSection extends StatelessWidget {
   final VoidCallback? onMoreAboutTap;
+  final AnimationController? animationController;
+  final bool animate;
 
-  const AboutSection({super.key, this.onMoreAboutTap});
+  const AboutSection({
+    super.key,
+    this.onMoreAboutTap,
+    this.animationController,
+    this.animate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 900;
+
+    final double? target = animate ? null : 1.0;
+    final bool autoPlay = animate && (animationController == null);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -21,62 +31,83 @@ class AboutSection extends StatelessWidget {
         children: [
           // Section Title
           Row(
-            children: [
-              Text(
-                '## ',
-                style: TextStyle(
-                  fontSize: isDesktop ? 42 : 32,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.grey[400],
-                ),
-              ),
-              Text(
-                'About me',
-                style: TextStyle(
-                  fontSize: isDesktop ? 42 : 32,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1A1A1A),
-                ),
-              ),
-            ],
-          ).animate().fadeIn(duration: 600.ms),
+                children: [
+                  Text(
+                    '## ',
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  Text(
+                    'About me',
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1A1A1A),
+                    ),
+                  ),
+                ],
+              )
+              .animate(
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
 
           const SizedBox(height: 16),
 
           // Subtitle
           Container(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child: Text(
-              "Let's build something amazing together. Read more about my journey or book a call to discuss your next project!",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-                height: 1.6,
-              ),
-            ),
-          ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Text(
+                  "Let's build something amazing together. Read more about my journey or book a call to discuss your next project!",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    height: 1.6,
+                  ),
+                ),
+              )
+              .animate(
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(delay: 200.ms, duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
 
           const SizedBox(height: 60),
 
           // About Content
-          isDesktop
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Image Placeholder
-                    Expanded(flex: 1, child: _buildImageSection()),
-                    const SizedBox(width: 60),
-                    // Info Cards
-                    Expanded(flex: 1, child: _buildInfoSection(isDesktop)),
-                  ],
-                )
-              : Column(
-                  children: [
-                    _buildImageSection(),
-                    const SizedBox(height: 40),
-                    _buildInfoSection(isDesktop),
-                  ],
-                ),
+          (isDesktop
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Image Placeholder
+                        Expanded(flex: 1, child: _buildImageSection()),
+                        const SizedBox(width: 60),
+                        // Info Cards
+                        Expanded(flex: 1, child: _buildInfoSection(isDesktop)),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        _buildImageSection(),
+                        const SizedBox(height: 40),
+                        _buildInfoSection(isDesktop),
+                      ],
+                    ))
+              .animate(
+                controller: animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(delay: 400.ms, duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
         ],
       ),
     );

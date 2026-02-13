@@ -16,7 +16,7 @@ class SectionAnimator extends StatefulWidget {
   /// If null, a default Fade + Slide Up animation is used.
   /// The [controller] is provided to trigger the animation when visible.
   final Widget Function(Widget child, AnimationController controller)?
-      customAnimationBuilder;
+  customAnimationBuilder;
 
   const SectionAnimator({
     super.key,
@@ -67,7 +67,7 @@ class _SectionAnimatorState extends State<SectionAnimator>
               _hasTriggered = true;
               _controller.forward();
               // Mark as animated in provider.
-              // Note: This updates the global state. 
+              // Note: This updates the global state.
               // If we want it to stay animated during just this scroll session but reset on reload,
               // Provider is good.
               provider.markAsAnimated(widget.sectionId);
@@ -76,17 +76,14 @@ class _SectionAnimatorState extends State<SectionAnimator>
           child: widget.customAnimationBuilder != null
               ? widget.customAnimationBuilder!(widget.child, _controller)
               : widget.child
-                  .animate(controller: _controller, autoPlay: false)
-                  .fadeIn(
-                    duration: 800.ms,
-                    curve: Curves.easeOutQuad,
-                  )
-                  .slideY(
-                    begin: 0.2, // Slide up from slightly below
-                    end: 0,
-                    duration: 800.ms,
-                    curve: Curves.easeOutCubic,
-                  ),
+                    .animate(controller: _controller, autoPlay: false)
+                    .fadeIn(duration: 800.ms, curve: Curves.easeOutQuad)
+                    .slideY(
+                      begin: 0.2, // Slide up from slightly below
+                      end: 0,
+                      duration: 800.ms,
+                      curve: Curves.easeOutCubic,
+                    ),
         );
       },
     );

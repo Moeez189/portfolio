@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/app_strings.dart';
 import 'typewriter_text.dart';
 
@@ -121,11 +122,17 @@ class FooterSection extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              _FooterLink(AppStrings.emailAddress),
+                              _FooterLink(
+                                AppStrings.emailAddress,
+                                url: 'mailto:${AppStrings.emailAddress}',
+                              ),
+                              // const SizedBox(width: 24),
+                              // _FooterLink(AppStrings.twitterLink),
                               const SizedBox(width: 24),
-                              _FooterLink(AppStrings.twitterLink),
-                              const SizedBox(width: 24),
-                              _FooterLink(AppStrings.linkedInLink),
+                              _FooterLink(
+                                AppStrings.linkedInLink,
+                                url: AppStrings.linkedInUrl,
+                              ),
                               const SizedBox(width: 24),
                               _madeInBadge(),
                             ],
@@ -139,9 +146,15 @@ class FooterSection extends StatelessWidget {
                             spacing: 20,
                             runSpacing: 10,
                             children: [
-                              _FooterLink(AppStrings.emailAddress),
-                              _FooterLink(AppStrings.twitterLink),
-                              _FooterLink(AppStrings.linkedInLink),
+                              _FooterLink(
+                                AppStrings.emailAddress,
+                                url: 'mailto:${AppStrings.emailAddress}',
+                              ),
+                              // _FooterLink(AppStrings.twitterLink),
+                              _FooterLink(
+                                AppStrings.linkedInLink,
+                                url: AppStrings.linkedInUrl,
+                              ),
                             ],
                           ),
                           const SizedBox(height: 24),
@@ -204,8 +217,9 @@ class FooterSection extends StatelessWidget {
 
 class _FooterLink extends StatefulWidget {
   final String text;
+  final String? url;
 
-  const _FooterLink(this.text);
+  const _FooterLink(this.text, {this.url});
 
   @override
   State<_FooterLink> createState() => _FooterLinkState();
@@ -214,20 +228,32 @@ class _FooterLink extends StatefulWidget {
 class _FooterLinkState extends State<_FooterLink> {
   bool _hovered = false;
 
+  Future<void> _handleTap() async {
+    if (widget.url != null) {
+      final Uri uri = Uri.parse(widget.url!);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: AnimatedDefaultTextStyle(
-        duration: const Duration(milliseconds: 200),
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: _hovered ? Colors.black : Colors.grey[700],
+      child: GestureDetector(
+        onTap: _handleTap,
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 200),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: _hovered ? Colors.black : Colors.grey[700],
+          ),
+          child: Text(widget.text),
         ),
-        child: Text(widget.text),
       ),
     );
   }

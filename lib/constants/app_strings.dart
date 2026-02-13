@@ -35,7 +35,7 @@ class AppStrings {
   static const String name = 'M Moeez';
 
   // Hero Section
-  static const String heroTitle = 'Software Developer';
+  static const String heroTitle = 'Software Engineer';
   static const String heroSubTitle = 'Web & Mobile Applications';
   static const String heroDescription =
       "I'm a software developer specializing in building sleek, functional "
@@ -194,11 +194,12 @@ class AppStrings {
   static const String sendButton = 'Send';
 
   // Footer
-  static const String copyrightText =
-      '© 2025 Flickdesigns — All rights reserved.';
-  static const String emailAddress = 'hello@flickdesigns.com';
+  static const String copyrightText = '© 2026 — All rights reserved.';
+  static const String emailAddress = 'm.moeez8910@gmail.com';
   static const String twitterLink = 'Twitter';
   static const String linkedInLink = 'LinkedIn';
+  static const String linkedInUrl =
+      'https://www.linkedin.com/in/muhammad-moeez-81aa0119b';
   static const String madeInFlutter = 'Made in Flutter';
 
   // Experience Section

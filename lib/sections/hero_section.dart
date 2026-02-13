@@ -43,14 +43,14 @@ class HeroSection extends StatelessWidget {
             target: target,
           ),
           const SizedBox(height: 8),
-          _AnimatedWordText(
-            text: AppStrings.heroSubTitle,
-            isDesktop: isDesktop,
-            controller: animationController,
-            baseDelay: 300,
-            autoPlay: autoPlay,
-            target: target,
-          ),
+          // _AnimatedWordText(
+          //   text: AppStrings.heroSubTitle,
+          //   isDesktop: isDesktop,
+          //   controller: animationController,
+          //   baseDelay: 300,
+          //   autoPlay: autoPlay,
+          //   target: target,
+          // ),
           const SizedBox(height: 32),
           // Subtitle
           Container(

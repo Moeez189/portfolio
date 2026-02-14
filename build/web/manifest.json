@@ -1,11 +1,11 @@
 {
-    "name": "moeez_portfolio",
-    "short_name": "moeez_portfolio",
+    "name": "Muhammad Moeez - Mobile App Developer",
+    "short_name": "Muhammad Moeez - Mobile App Developer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Muhammad Moeez - Mobile App Developer",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

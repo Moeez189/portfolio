@@ -32,7 +32,7 @@ class AppStrings {
   static const String contactLink = 'Contact';
   static const String resumeLink = 'Resume';
   static const String resumeUrl =
-      'https://www.canva.com/design/DAF1LSIbRrA/GQJJUHEX_HbZko-bHkYDOw/view?utm_content=DAF1LSIbRrA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8a941f5d1f';
+      'https://www.canva.com/design/DAHBSoyor6E/7zJ-cvhb-xSMtdwtV1u52A/view?utm_content=DAHBSoyor6E&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h687b4d59af';
   static const String name = 'M Moeez';
 
   // Hero Section
@@ -155,7 +155,7 @@ class AppStrings {
   };
 
   // Contact / CTA Section
-  static const String contactHeading = "Let's Build Your\nMobile App";
+  static const String contactHeading = "Let's Build Your\n Application";
   static const String getInTouchButton = 'Start your app project';
   static const String contactPageHeading =
       "Let's Turn Your App Idea Into Reality";

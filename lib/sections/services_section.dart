@@ -302,15 +302,15 @@ class _ServicesDeckState extends State<_ServicesDeck> {
             ],
           ),
         ),
-        const SizedBox(height: 14),
-        Text(
-          'Auto-rotates every 6 seconds with a slower fade transition. Click to go next instantly.',
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[600],
-          ),
-        ),
+        // const SizedBox(height: 14),
+        // Text(
+        //   'Auto-rotates every 6 seconds with a slower fade transition. Click to go next instantly.',
+        //   style: TextStyle(
+        //     fontSize: 13,
+        //     fontWeight: FontWeight.w500,
+        //     color: Colors.grey[600],
+        //   ),
+        // ),
       ],
     );
   }

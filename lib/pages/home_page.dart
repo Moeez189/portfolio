@@ -132,10 +132,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                       child: ProjectsSection(key: _workKey, animate: false),
                     ),
-                    SectionAnimator(
-                      sectionId: AppStrings.sectionIdTrustedBy,
-                      child: const TrustedBySection(),
-                    ),
+                    // SectionAnimator(
+                    //   sectionId: AppStrings.sectionIdTrustedBy,
+                    //   child: const TrustedBySection(),
+                    // ),
                     SectionAnimator(
                       sectionId: AppStrings.sectionIdAbout,
                       customAnimationBuilder: (_, controller) => AboutSection(
@@ -222,48 +222,48 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class TrustedBySection extends StatelessWidget {
-  const TrustedBySection({super.key});
+// class TrustedBySection extends StatelessWidget {
+//   const TrustedBySection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
-      child: Column(
-        children: [
-          Text(
-            AppStrings.trustedByTitle,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 30),
-          Wrap(
-            spacing: 50,
-            runSpacing: 20,
-            alignment: WrapAlignment.center,
-            children: AppStrings.trustedByCompanies
-                .map((name) => _companyLogo(name))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+//       child: Column(
+//         children: [
+//           Text(
+//             AppStrings.trustedByTitle,
+//             style: TextStyle(
+//               fontSize: 14,
+//               color: Colors.grey[600],
+//               fontWeight: FontWeight.w500,
+//             ),
+//           ),
+//           const SizedBox(height: 30),
+//           Wrap(
+//             spacing: 50,
+//             runSpacing: 20,
+//             alignment: WrapAlignment.center,
+//             children: AppStrings.trustedByCompanies
+//                 .map((name) => _companyLogo(name))
+//                 .toList(),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  Widget _companyLogo(String name) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        name,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: Colors.grey[400],
-        ),
-      ),
-    );
-  }
-}
+//   Widget _companyLogo(String name) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//       child: Text(
+//         name,
+//         style: TextStyle(
+//           fontSize: 18,
+//           fontWeight: FontWeight.w600,
+//           color: Colors.grey[400],
+//         ),
+//       ),
+//     );
+//   }
+// }

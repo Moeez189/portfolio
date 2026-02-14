@@ -21,11 +21,19 @@ class ProjectsSection extends StatefulWidget {
 
 class _ProjectsSectionState extends State<ProjectsSection> {
   late final Future<List<ProjectItem>> _projectsFuture;
+  final ScrollController _projectsScrollController = ScrollController();
+  int _currentProjectIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _projectsFuture = ProjectsRepository.loadProjects();
+  }
+
+  @override
+  void dispose() {
+    _projectsScrollController.dispose();
+    super.dispose();
   }
 
   Future<void> _openUrl(String url) async {
@@ -34,6 +42,68 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
+  }
+
+  double _cardWidth(bool isDesktop) => isDesktop ? 360 : 290;
+
+  double _cardExtent(bool isDesktop) => _cardWidth(isDesktop) + 16;
+
+  void _updateCurrentIndexFromScroll(
+    ScrollMetrics metrics,
+    int itemCount,
+    bool isDesktop,
+  ) {
+    if (itemCount <= 0) return;
+    const edgeTolerance = 8.0;
+
+    final double pixels = metrics.pixels;
+    final double min = metrics.minScrollExtent;
+    final double max = metrics.maxScrollExtent;
+
+    final int nextIndex;
+    if (pixels <= min + edgeTolerance) {
+      nextIndex = 0;
+    } else if (pixels >= max - edgeTolerance) {
+      nextIndex = itemCount - 1;
+    } else {
+      final extent = _cardExtent(isDesktop);
+      final estimated = (pixels / extent).round();
+      nextIndex = estimated.clamp(0, itemCount - 1);
+    }
+
+    if (nextIndex != _currentProjectIndex) {
+      setState(() => _currentProjectIndex = nextIndex);
+    }
+  }
+
+  void _goToIndex({
+    required int index,
+    required int itemCount,
+    required bool isDesktop,
+  }) {
+    if (!_projectsScrollController.hasClients || itemCount <= 0) return;
+    final int targetIndex = index.clamp(0, itemCount - 1);
+    final position = _projectsScrollController.position;
+    final targetOffset = (targetIndex * _cardExtent(isDesktop)).clamp(
+      position.minScrollExtent,
+      position.maxScrollExtent,
+    );
+    setState(() => _currentProjectIndex = targetIndex);
+    _projectsScrollController.animateTo(
+      targetOffset,
+      duration: const Duration(milliseconds: 420),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _goToNextLoop({
+    required int itemCount,
+    required bool isDesktop,
+    required int activeIndex,
+  }) {
+    if (itemCount <= 0) return;
+    final int targetIndex = (activeIndex + 1) % itemCount;
+    _goToIndex(index: targetIndex, itemCount: itemCount, isDesktop: isDesktop);
   }
 
   @override
@@ -122,22 +192,90 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 );
               }
 
+              final int activeIndex = _currentProjectIndex.clamp(
+                0,
+                projects.length - 1,
+              );
+              final bool showBack = activeIndex > 0;
+              final bool showForward = projects.length > 1;
+
+              final double listHeight = isDesktop ? 340 : 315;
+
               return SizedBox(
-                height: isDesktop ? 340 : 315,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
+                height: listHeight,
+                child: Stack(
                   clipBehavior: Clip.none,
-                  padding: EdgeInsets.symmetric(vertical: isDesktop ? 14 : 10),
-                  itemCount: projects.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 16),
-                  itemBuilder: (context, index) {
-                    return _buildProjectCard(
-                      project: projects[index],
-                      isDesktop: isDesktop,
-                      index: index,
-                    );
-                  },
+                  children: [
+                    NotificationListener<ScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification.metrics.axis == Axis.horizontal) {
+                          _updateCurrentIndexFromScroll(
+                            notification.metrics,
+                            projects.length,
+                            isDesktop,
+                          );
+                        }
+                        return false;
+                      },
+                      child: ListView.separated(
+                        controller: _projectsScrollController,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        clipBehavior: Clip.none,
+                        padding: EdgeInsets.symmetric(
+                          vertical: isDesktop ? 14 : 10,
+                          horizontal: 6,
+                        ),
+                        itemCount: projects.length,
+                        separatorBuilder: (_, __) => const SizedBox(width: 16),
+                        itemBuilder: (context, index) {
+                          return _buildProjectCard(
+                            project: projects[index],
+                            isDesktop: isDesktop,
+                            index: index,
+                          );
+                        },
+                      ),
+                    ),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 220),
+                      curve: Curves.easeOutCubic,
+                      left: showBack ? 4 : -64,
+                      top: listHeight / 2 - 26,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 180),
+                        opacity: showBack ? 1 : 0,
+                        child: _ProjectsFloatingNavButton(
+                          icon: Icons.arrow_back_rounded,
+                          tooltip: 'Back',
+                          onTap: () => _goToIndex(
+                            index: activeIndex - 1,
+                            itemCount: projects.length,
+                            isDesktop: isDesktop,
+                          ),
+                        ),
+                      ),
+                    ),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 220),
+                      curve: Curves.easeOutCubic,
+                      right: showForward ? 4 : -64,
+                      top: listHeight / 2 - 26,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 180),
+                        opacity: showForward ? 1 : 0,
+                        child: _ProjectsFloatingNavButton(
+                          icon: Icons.arrow_forward_rounded,
+                          tooltip: 'Next',
+                          onTap: () => _goToNextLoop(
+                            itemCount: projects.length,
+                            isDesktop: isDesktop,
+                            activeIndex: activeIndex,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
@@ -189,6 +327,83 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           duration: 500.ms,
         )
         .slideX(begin: 0.08, duration: 450.ms, curve: Curves.easeOut);
+  }
+}
+
+class _ProjectsFloatingNavButton extends StatefulWidget {
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  const _ProjectsFloatingNavButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  @override
+  State<_ProjectsFloatingNavButton> createState() =>
+      _ProjectsFloatingNavButtonState();
+}
+
+class _ProjectsFloatingNavButtonState
+    extends State<_ProjectsFloatingNavButton> {
+  bool _hovered = false;
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: widget.tooltip,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hovered = true),
+        onExit: (_) => setState(() {
+          _hovered = false;
+          _pressed = false;
+        }),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          onTapDown: (_) => setState(() => _pressed = true),
+          onTapUp: (_) => setState(() => _pressed = false),
+          onTapCancel: () => setState(() => _pressed = false),
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 120),
+            scale: _pressed ? 0.94 : (_hovered ? 1.04 : 1.0),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 170),
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: _hovered
+                    ? const Color(0xFF1A1A1A)
+                    : Colors.white.withValues(alpha: 0.96),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _hovered
+                      ? const Color(0xFF1A1A1A)
+                      : Colors.grey.withValues(alpha: 0.25),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(
+                      alpha: _hovered ? 0.18 : 0.1,
+                    ),
+                    blurRadius: _hovered ? 20 : 14,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Icon(
+                widget.icon,
+                size: 22,
+                color: _hovered ? Colors.white : const Color(0xFF1A1A1A),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

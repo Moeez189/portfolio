@@ -235,30 +235,33 @@ class AboutSection extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              ...AppStrings.aboutHighlights.map(
+                (item) => Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Icon(
-                        Icons.calendar_month,
-                        size: 40,
-                        color: Colors.grey[400],
+                        Icons.check_circle_outline_rounded,
+                        size: 18,
+                        color: Colors.grey[700],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        AppStrings.aboutScheduleMeeting,
-                        style: TextStyle(color: Colors.grey[500]),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[700],
+                            height: 1.5,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,

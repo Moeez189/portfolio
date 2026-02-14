@@ -9,7 +9,6 @@ import '../sections/hero_section.dart';
 import '../sections/projects_section.dart';
 import '../sections/services_section.dart';
 import '../sections/tech_stack_section.dart';
-import '../sections/testimonials_section.dart';
 import '../widgets/section_animator.dart';
 import '../widgets/footer_section.dart';
 import '../constants/app_strings.dart';
@@ -162,10 +161,6 @@ class _HomePageState extends State<HomePage> {
                             animationController: controller,
                           ),
                       child: ServicesSection(key: _servicesKey, animate: false),
-                    ),
-                    SectionAnimator(
-                      sectionId: AppStrings.sectionIdTestimonials,
-                      child: const TestimonialsSection(),
                     ),
                     FooterSection(
                       key: _contactKey,

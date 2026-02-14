@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../constants/app_strings.dart';
 
 class ServicesSection extends StatelessWidget {
@@ -11,6 +12,16 @@ class ServicesSection extends StatelessWidget {
     this.animationController,
     this.animate = true,
   });
+
+  static const List<IconData> _serviceIcons = [
+    Icons.phone_iphone_rounded,
+    Icons.android_rounded,
+    Icons.storefront_rounded,
+    Icons.api_rounded,
+    Icons.speed_rounded,
+    Icons.bug_report_rounded,
+    Icons.rocket_launch_rounded,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +39,6 @@ class ServicesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Title
           Row(
                 children: [
                   Text(
@@ -56,11 +66,9 @@ class ServicesSection extends StatelessWidget {
               )
               .fadeIn(duration: 800.ms)
               .slideY(begin: 0.1, duration: 800.ms),
-
           const SizedBox(height: 16),
-
-          Container(
-                constraints: const BoxConstraints(maxWidth: 600),
+          ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 680),
                 child: Text(
                   AppStrings.servicesSectionDescription,
                   style: TextStyle(
@@ -77,59 +85,29 @@ class ServicesSection extends StatelessWidget {
               )
               .fadeIn(delay: 200.ms, duration: 800.ms)
               .slideY(begin: 0.1, duration: 800.ms),
-
-          const SizedBox(height: 60),
-
-          // Services Grid
-          GridView.count(
-            crossAxisCount: isDesktop ? 2 : 1,
+          const SizedBox(height: 44),
+          GridView.builder(
+            itemCount: AppStrings.services.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 24,
-            childAspectRatio: isDesktop ? 1.8 : 1.4,
-            children: [
-              _buildServiceCard(
-                icon: Icons.web_rounded,
-                title: AppStrings.webDevelopmentTitle,
-                description: AppStrings.webDevelopmentDescription,
-                color: const Color(0xFFE6F0FF),
-                delay: 0,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: isDesktop ? 2 : 1,
+              mainAxisSpacing: 18,
+              crossAxisSpacing: 18,
+              childAspectRatio: isDesktop ? 1.7 : 1.25,
+            ),
+            itemBuilder: (context, index) {
+              final service = AppStrings.services[index];
+              return _buildServiceCard(
+                icon: _serviceIcons[index],
+                title: service.title,
+                description: service.description,
+                delay: index * 110,
                 controller: animationController,
                 autoPlay: autoPlay,
                 target: target,
-              ),
-              _buildServiceCard(
-                icon: Icons.phone_iphone_rounded,
-                title: AppStrings.mobileAppDevelopmentTitle,
-                description: AppStrings.mobileAppDevelopmentDescription,
-                color: const Color(0xFFFFF4E6),
-                delay: 150,
-                controller: animationController,
-                autoPlay: autoPlay,
-                target: target,
-              ),
-              _buildServiceCard(
-                icon: Icons.shopping_cart_rounded,
-                title: AppStrings.ecommerceDevelopmentTitle,
-                description: AppStrings.ecommerceDevelopmentDescription,
-                color: const Color(0xFFE8F4EA),
-                delay: 300,
-                controller: animationController,
-                autoPlay: autoPlay,
-                target: target,
-              ),
-              _buildServiceCard(
-                icon: Icons.settings_rounded,
-                title: AppStrings.customSoftwareSolutionsTitle,
-                description: AppStrings.customSoftwareSolutionsDescription,
-                color: const Color(0xFFF4E6FF),
-                delay: 450,
-                controller: animationController,
-                autoPlay: autoPlay,
-                target: target,
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),
@@ -140,7 +118,6 @@ class ServicesSection extends StatelessWidget {
     required IconData icon,
     required String title,
     required String description,
-    required Color color,
     required int delay,
     AnimationController? controller,
     bool autoPlay = true,
@@ -152,58 +129,66 @@ class ServicesSection extends StatelessWidget {
               offset: Offset(0, hovered ? -6 : 0),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 160),
-                padding: const EdgeInsets.all(28),
+                padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(24),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: hovered
                       ? [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 26,
+                            blurRadius: 24,
                             offset: const Offset(0, 14),
                           ),
                         ]
-                      : null,
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.04),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
                   border: Border.all(
-                    color: Colors.black.withValues(alpha: hovered ? 0.06 : 0.0),
+                    color: Colors.black.withValues(
+                      alpha: hovered ? 0.08 : 0.04,
+                    ),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.black.withValues(alpha: 0.06),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
                         icon,
-                        size: 24,
+                        size: 22,
                         color: const Color(0xFF1A1A1A),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF1A1A1A),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: Text(
                         description,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13.5,
                           color: Colors.grey[700],
-                          height: 1.6,
+                          height: 1.5,
                         ),
+                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
                       ),
                     ),
                   ],

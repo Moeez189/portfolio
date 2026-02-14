@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../constants/app_strings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ProjectsSection extends StatelessWidget {
+import '../constants/app_strings.dart';
+import '../utils/projects_repository.dart';
+
+class ProjectsSection extends StatefulWidget {
   final AnimationController? animationController;
   final bool animate;
 
@@ -13,436 +16,281 @@ class ProjectsSection extends StatelessWidget {
   });
 
   @override
+  State<ProjectsSection> createState() => _ProjectsSectionState();
+}
+
+class _ProjectsSectionState extends State<ProjectsSection> {
+  late final Future<List<ProjectItem>> _projectsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _projectsFuture = ProjectsRepository.loadProjects();
+  }
+
+  Future<void> _openUrl(String url) async {
+    if (url.trim().isEmpty) return;
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 900;
 
-    final double? target = animate ? null : 1.0;
-    final bool autoPlay = animate && (animationController == null);
+    final double? target = widget.animate ? null : 1.0;
+    final bool autoPlay =
+        widget.animate && (widget.animationController == null);
 
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 40 : 16,
-        vertical: 40,
+        vertical: 80,
       ),
-      child: isDesktop
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: _buildProjectCard(
-                    title: AppStrings.analyticsDashboardTitle,
-                    description: AppStrings.analyticsDashboardDescription,
-                    gradientColors: const [
-                      Color(0xFFB8E6B8),
-                      Color(0xFF90EE90),
-                    ],
-                    mockupType: MockupType.dashboard,
-                    delay: 0,
-                    controller: animationController,
-                    autoPlay: autoPlay,
-                    target: target,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+                children: [
+                  Text(
+                    AppStrings.sectionPrefix,
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  Text(
+                    AppStrings.projectsSectionTitle,
+                    style: TextStyle(
+                      fontSize: isDesktop ? 42 : 32,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1A1A1A),
+                    ),
+                  ),
+                ],
+              )
+              .animate(
+                controller: widget.animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(duration: 800.ms)
+              .slideY(begin: 0.1, duration: 800.ms),
+          const SizedBox(height: 16),
+          ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 700),
+                child: Text(
+                  AppStrings.projectsSectionDescription,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    height: 1.6,
                   ),
                 ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: _buildProjectCard(
-                    title: AppStrings.eyewearEcommerceTitle,
-                    description: AppStrings.eyewearEcommerceDescription,
-                    gradientColors: const [
-                      Color(0xFFFFE066),
-                      Color(0xFFFFD700),
-                    ],
-                    mockupType: MockupType.ecommerce,
-                    delay: 150,
-                    controller: animationController,
-                    autoPlay: autoPlay,
-                    target: target,
-                  ),
+              )
+              .animate(
+                controller: widget.animationController,
+                autoPlay: autoPlay,
+                target: target,
+              )
+              .fadeIn(delay: 150.ms, duration: 700.ms)
+              .slideY(begin: 0.1, duration: 700.ms),
+          const SizedBox(height: 36),
+          FutureBuilder<List<ProjectItem>>(
+            future: _projectsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return _buildInfoMessage(AppStrings.projectsLoading, isDesktop);
+              }
+
+              if (snapshot.hasError) {
+                return _buildInfoMessage(
+                  AppStrings.projectsLoadError,
+                  isDesktop,
+                );
+              }
+
+              final projects = snapshot.data ?? const <ProjectItem>[];
+              if (projects.isEmpty) {
+                return _buildInfoMessage(
+                  AppStrings.projectsLoadError,
+                  isDesktop,
+                );
+              }
+
+              return SizedBox(
+                height: isDesktop ? 300 : 280,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: projects.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 16),
+                  itemBuilder: (context, index) {
+                    return _buildProjectCard(
+                      project: projects[index],
+                      isDesktop: isDesktop,
+                      index: index,
+                    );
+                  },
                 ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: _buildProjectCard(
-                    title: AppStrings.freshPagesTitle,
-                    description: AppStrings.freshPagesDescription,
-                    gradientColors: const [
-                      Color(0xFFFFB366),
-                      Color(0xFFFF9933),
-                    ],
-                    mockupType: MockupType.landing,
-                    delay: 300,
-                    controller: animationController,
-                    autoPlay: autoPlay,
-                    target: target,
-                  ),
-                ),
-              ],
-            )
-          : Column(
-              children: [
-                _buildProjectCard(
-                  title: AppStrings.analyticsDashboardTitle,
-                  description: AppStrings.analyticsDashboardDescription,
-                  gradientColors: const [Color(0xFFB8E6B8), Color(0xFF90EE90)],
-                  mockupType: MockupType.dashboard,
-                  delay: 0,
-                  controller: animationController,
-                  autoPlay: autoPlay,
-                  target: target,
-                ),
-                const SizedBox(height: 20),
-                _buildProjectCard(
-                  title: AppStrings.eyewearEcommerceTitle,
-                  description: AppStrings.eyewearEcommerceDescription,
-                  gradientColors: const [Color(0xFFFFE066), Color(0xFFFFD700)],
-                  mockupType: MockupType.ecommerce,
-                  delay: 100,
-                  controller: animationController,
-                  autoPlay: autoPlay,
-                  target: target,
-                ),
-                const SizedBox(height: 20),
-                _buildProjectCard(
-                  title: AppStrings.freshPagesTitle,
-                  description: AppStrings.freshPagesDescription,
-                  gradientColors: const [Color(0xFFFFB366), Color(0xFFFF9933)],
-                  mockupType: MockupType.landing,
-                  delay: 200,
-                  controller: animationController,
-                  autoPlay: autoPlay,
-                  target: target,
-                ),
-              ],
-            ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoMessage(String message, bool isDesktop) {
+    return SizedBox(
+      height: isDesktop ? 220 : 180,
+      child: Center(
+        child: Text(
+          message,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 
   Widget _buildProjectCard({
-    required String title,
-    required String description,
-    required List<Color> gradientColors,
-    required MockupType mockupType,
-    required int delay,
-    AnimationController? controller,
-    bool autoPlay = true,
-    double? target,
+    required ProjectItem project,
+    required bool isDesktop,
+    required int index,
   }) {
-    return _HoverPress(
-          onTap: () {},
-          builder: (hovered, pressed) {
-            final y = hovered ? -6.0 : 0.0;
-            final borderAlpha = hovered ? 0.22 : 0.15;
-            final shadowAlpha = hovered ? 0.10 : 0.06;
+    final bool clickableCard = project.hasSinglePlatform;
+    final double cardWidth = isDesktop ? 360 : 290;
 
-            return Transform.translate(
-              offset: Offset(0, y),
-              child: Container(
-                height: 420,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.92),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.grey.withValues(alpha: borderAlpha),
-                    width: 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: shadowAlpha),
-                      blurRadius: hovered ? 34 : 30,
-                      offset: const Offset(0, 14),
-                    ),
-                  ],
+    final card =
+        AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              width: cardWidth,
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.94),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.grey.withValues(alpha: 0.18),
+                  width: 1,
                 ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 24,
-                      right: 24,
-                      top: 24,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF1A1A1A),
-                            ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.06),
+                    blurRadius: 24,
+                    offset: const Offset(0, 12),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    project.name,
+                    style: const TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF1A1A1A),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    project.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                      height: 1.5,
+                    ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      if (project.hasAndroid)
+                        _PlatformButton(
+                          icon: Icons.android,
+                          label: AppStrings.openAndroid,
+                          onTap: () => _openUrl(project.androidLink),
+                        ),
+                      if (project.hasAndroid && project.hasIos)
+                        const SizedBox(width: 10),
+                      if (project.hasIos)
+                        _PlatformButton(
+                          icon: Icons.apple,
+                          label: AppStrings.openIos,
+                          onTap: () => _openUrl(project.iosLink),
+                        ),
+                      const Spacer(),
+                      if (clickableCard)
+                        Text(
+                          AppStrings.singlePlatformTapHint,
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
                           ),
-                          const SizedBox(height: 12),
-                          Text(
-                            description,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[800],
-                              height: 1.5,
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      left: 20,
-                      right: 20,
-                      bottom: 0,
-                      child: _buildMockup(mockupType),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        )
-        .animate(controller: controller, autoPlay: autoPlay, target: target)
-        .fadeIn(
-          delay: Duration(milliseconds: delay),
-          duration: 800.ms,
-        )
-        .slideY(begin: 0.1, duration: 800.ms);
-  }
-
-  Widget _buildMockup(MockupType type) {
-    switch (type) {
-      case MockupType.dashboard:
-        return Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 20,
-                offset: const Offset(0, -5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.amber,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    _dashboardMetric(
-                      AppStrings.projectMetricTotalLabel,
-                      AppStrings.projectMetricTotalValue,
-                    ),
-                    const SizedBox(width: 12),
-                    _dashboardMetric(
-                      AppStrings.projectMetricActiveLabel,
-                      AppStrings.projectMetricActiveValue,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-
-      case MockupType.ecommerce:
-        return Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: const Color(0xFF2D5A4B),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 20,
-                offset: const Offset(0, -5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  AppStrings.projectEyewearLabel,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                        ),
+                    ],
                   ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Icon(
-                        Icons.visibility,
-                        color: Colors.white54,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-
-      case MockupType.landing:
-        return Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFA726),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 20,
-                offset: const Offset(0, -5),
+                ],
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Container(
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-    }
-  }
+            )
+            .animate()
+            .fadeIn(
+              delay: Duration(milliseconds: 90 * index),
+              duration: 500.ms,
+            )
+            .slideX(begin: 0.08, duration: 450.ms, curve: Curves.easeOut);
 
-  Widget _dashboardMetric(String label, String value) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF1A1A1A),
-              ),
-            ),
-          ],
-        ),
+    return MouseRegion(
+      cursor: clickableCard
+          ? SystemMouseCursors.click
+          : SystemMouseCursors.basic,
+      child: GestureDetector(
+        onTap: clickableCard && project.singlePlatformLink != null
+            ? () => _openUrl(project.singlePlatformLink!)
+            : null,
+        child: card,
       ),
     );
   }
 }
 
-enum MockupType { dashboard, ecommerce, landing }
+class _PlatformButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
 
-typedef _HoverPressBuilder = Widget Function(bool hovered, bool pressed);
-
-class _HoverPress extends StatefulWidget {
-  final VoidCallback? onTap;
-  final _HoverPressBuilder builder;
-
-  const _HoverPress({this.onTap, required this.builder});
-
-  @override
-  State<_HoverPress> createState() => _HoverPressState();
-}
-
-class _HoverPressState extends State<_HoverPress> {
-  bool _hovered = false;
-  bool _pressed = false;
+  const _PlatformButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit: (_) => setState(() {
-        _hovered = false;
-        _pressed = false;
-      }),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        onTapDown: (_) => setState(() => _pressed = true),
-        onTapUp: (_) => setState(() => _pressed = false),
-        onTapCancel: () => setState(() => _pressed = false),
-        child: AnimatedScale(
-          duration: const Duration(milliseconds: 120),
-          scale: _pressed ? 0.99 : (_hovered ? 1.01 : 1.0),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 140),
-            child: widget.builder(_hovered, _pressed),
+    return Tooltip(
+      message: label,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, size: 20, color: const Color(0xFF1A1A1A)),
           ),
         ),
       ),

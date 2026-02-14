@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../constants/app_strings.dart';
 
 class TechStackSection extends StatelessWidget {
@@ -18,7 +19,6 @@ class TechStackSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Title
           Row(
             children: [
               Text(
@@ -39,11 +39,9 @@ class TechStackSection extends StatelessWidget {
               ),
             ],
           ).animate().fadeIn(duration: 600.ms),
-
           const SizedBox(height: 12),
-
-          Container(
-            constraints: const BoxConstraints(maxWidth: 600),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 760),
             child: Text(
               AppStrings.techStackDescription,
               style: TextStyle(
@@ -53,100 +51,84 @@ class TechStackSection extends StatelessWidget {
               ),
             ),
           ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
+          const SizedBox(height: 36),
+          ...AppStrings.techStackCategories.entries
+              .toList()
+              .asMap()
+              .entries
+              .map((entry) {
+                final index = entry.key;
+                final category = entry.value;
+                return _buildCategoryCard(
+                      title: category.key,
+                      items: category.value,
+                    )
+                    .animate()
+                    .fadeIn(delay: Duration(milliseconds: 80 * index))
+                    .slideY(begin: 0.06, duration: 450.ms);
+              }),
+        ],
+      ),
+    );
+  }
 
-          const SizedBox(height: 40),
-
-          // Tech Icons
+  Widget _buildCategoryCard({
+    required String title,
+    required List<String> items,
+  }) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1A1A1A),
+            ),
+          ),
+          const SizedBox(height: 10),
           Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
-              _buildTechIcon(
-                AppStrings.techFlutter,
-                Icons.flutter_dash,
-                const Color(0xFF02569B),
-              ),
-              _buildTechIcon(
-                AppStrings.techReact,
-                Icons.code,
-                const Color(0xFF61DAFB),
-              ),
-              _buildTechIcon(
-                AppStrings.techTypeScript,
-                Icons.code_rounded,
-                const Color(0xFF3178C6),
-              ),
-              _buildTechIcon(
-                AppStrings.techFirebase,
-                Icons.local_fire_department,
-                const Color(0xFFFFA000),
-              ),
-              _buildTechIcon(
-                AppStrings.techSupabase,
-                Icons.storage_rounded,
-                const Color(0xFF3ECF8E),
-              ),
-              _buildTechIcon(
-                AppStrings.techNode,
-                Icons.developer_mode,
-                const Color(0xFF339933),
-              ),
-              _buildTechIcon(
-                AppStrings.techGit,
-                Icons.merge_type,
-                const Color(0xFFF05032),
-              ),
-              _buildTechIcon(
-                AppStrings.techVsCode,
-                Icons.edit_note,
-                const Color(0xFF007ACC),
-              ),
-              _buildTechIcon(
-                AppStrings.techAndroid,
-                Icons.android,
-                const Color(0xFF3DDC84),
-              ),
-              _buildTechIcon(
-                AppStrings.techIos,
-                Icons.apple,
-                const Color(0xFF000000),
-              ),
-            ],
+            spacing: 8,
+            runSpacing: 8,
+            children: items.map(_buildChip).toList(growable: false),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTechIcon(String name, IconData icon, Color color) {
+  Widget _buildChip(String value) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: const Color(0xFFF2F2F2),
+        borderRadius: BorderRadius.circular(999),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(width: 10),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF1A1A1A),
-            ),
-          ),
-        ],
+      child: Text(
+        value,
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF1A1A1A),
+        ),
       ),
-    ).animate().fadeIn(duration: 600.ms).scale(begin: const Offset(0.9, 0.9));
+    );
   }
 }

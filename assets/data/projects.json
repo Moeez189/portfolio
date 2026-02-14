@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Diqqa App",
+    "description": "Flutter app (Stable) for inspection and field workflows.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.codeupscale.inspection",
+    "iosLink": ""
+  },
+  {
+    "name": "Crowd VIP",
+    "description": "Flutter social platform app (Stable) with Android and iOS releases.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.codeupscale.crowdvip",
+    "iosLink": "https://apps.apple.com/us/app/crowd-vip/id6748024797"
+  },
+  {
+    "name": "Cervello",
+    "description": "React Native / Expo app (In Progress) with ongoing Android and iOS rollout.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.codeupscale.cervello",
+    "iosLink": "https://apps.apple.com/ph/app/stratum-x/id6751602538"
+  },
+  {
+    "name": "Taist",
+    "description": "React Native app (Stable) available on iOS.",
+    "androidLink": "",
+    "iosLink": "https://apps.apple.com/us/app/taist/id1598624809"
+  },
+  {
+    "name": "Phone-Booth",
+    "description": "React Native app (Stable) available on iOS.",
+    "androidLink": "",
+    "iosLink": "https://apps.apple.com/us/app/phone-booth/id6740243641"
+  },
+  {
+    "name": "Noble",
+    "description": "React Native app (Stable) with Android and iOS support.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.codeupscale.noble",
+    "iosLink": "https://apps.apple.com/ca/app/noble-connections/id6502212184"
+  },
+  {
+    "name": "Tax Tracker",
+    "description": "React Native app (In Progress) currently listed on Android.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.codeupscale.taxtrackerapp",
+    "iosLink": ""
+  },
+  {
+    "name": "Eyezone",
+    "description": "Android Native app for business operations.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.skynet.eyezone",
+    "iosLink": ""
+  },
+  {
+    "name": "Carton",
+    "description": "Android Native logistics app for carton workflows.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.tektiks.goget_carton",
+    "iosLink": ""
+  },
+  {
+    "name": "DBH",
+    "description": "Android Native RPM app for field/business use.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.dhs.rpm",
+    "iosLink": ""
+  },
+  {
+    "name": "Fitness App",
+    "description": "Android Native fitness application with feature-rich modules.",
+    "androidLink": "https://play.google.com/store/apps/details?id=com.fitneeapplication",
+    "iosLink": ""
+  }
+]

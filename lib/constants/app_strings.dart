@@ -1,6 +1,6 @@
 class AppStrings {
   // App
-  static const String appTitle = 'Muhammad Moeez - Software Engineer';
+  static const String appTitle = 'Muhammad Moeez - Mobile App Developer';
 
   // Shared Labels
   static const String sectionPrefix = '## ';
@@ -23,7 +23,6 @@ class AppStrings {
   static const String sectionIdAbout = 'about';
   static const String sectionIdTechStack = 'tech_stack';
   static const String sectionIdServices = 'services';
-  static const String sectionIdTestimonials = 'testimonials';
   static const String sectionIdContact = 'contact';
 
   // Navbar
@@ -37,32 +36,25 @@ class AppStrings {
   static const String name = 'M Moeez';
 
   // Hero Section
-  static const String heroTitle = 'Software Engineer';
-  static const String heroSubTitle = 'Web & Mobile Applications';
+  static const String heroTitle = 'Mobile App Developer';
+  static const String heroSubTitle = 'Flutter • React Native • Android Native';
   static const String heroDescription =
-      "I'm a software developer specializing in building sleek, functional "
-      "web and mobile applications. With a passion for clean code and "
-      'user-centric design, I turn ideas into digital experiences that work '
-      'beautifully and deliver results.';
+      'Mobile Application Developer with 3+ years of experience building '
+      'scalable apps using Flutter, React Native, and Android Native '
+      '(Kotlin/Java). I specialize in clean architecture, API integrations, '
+      'cross-platform delivery, and reliable kiosk systems for production '
+      'workloads.';
 
   // Projects Section
-  static const String analyticsDashboardTitle = 'Analytics Dashboard';
-  static const String analyticsDashboardDescription =
-      'A data-driven dashboard for tracking key metrics. Intuitive interface, '
-      'real-time updates, and widgets for businesses.';
-  static const String eyewearEcommerceTitle = 'Eyewear E-Commerce Site';
-  static const String eyewearEcommerceDescription =
-      'An immersive online store for a modern eyewear brand. Seamless '
-      'navigation, and a personalized shopping experience.';
-  static const String freshPagesTitle = 'FreshPages';
-  static const String freshPagesDescription =
-      'A high-conversion landing page built for a SaaS startup. Clean layout, '
-      'bold visuals, and a focus on driving user action.';
-  static const String projectMetricTotalLabel = 'Total';
-  static const String projectMetricTotalValue = '12,345';
-  static const String projectMetricActiveLabel = 'Active';
-  static const String projectMetricActiveValue = '8,234';
-  static const String projectEyewearLabel = 'Eyewear';
+  static const String projectsSectionTitle = 'Mobile Projects';
+  static const String projectsSectionDescription =
+      'Production and in-progress apps delivered across Flutter, React '
+      'Native/Expo, and Android Native.';
+  static const String projectsLoading = 'Loading projects...';
+  static const String projectsLoadError = 'Unable to load projects right now.';
+  static const String openAndroid = 'Open Android app';
+  static const String openIos = 'Open iOS app';
+  static const String singlePlatformTapHint = 'Tap card to open app listing';
 
   // Trusted By Section
   static const String trustedByTitle = 'Trusted by';
@@ -77,103 +69,99 @@ class AppStrings {
   // About Section
   static const String aboutSectionTitle = 'About me';
   static const String aboutSectionDescription =
-      "Let's build something amazing together. Read more about my journey or "
-      'book a call to discuss your next project!';
+      'I am a mobile app engineer with 3+ years of hands-on experience '
+      'building enterprise products and customer-facing apps. My stack '
+      'includes Flutter, React Native, Kotlin, and Java, with strong focus '
+      'on maintainable architecture and real-world product delivery.';
+  static const List<String> aboutHighlights = [
+    'Clean Architecture, MVVM, BLoC, and Riverpod',
+    'API integrations with REST, Supabase, and Firebase',
+    'Kiosk systems and enterprise-grade mobile workflows',
+    'Domain experience in e-commerce, fitness, and logistics apps',
+  ];
   static const String aboutProfileName = 'Muhammad Moeez';
   static const String aboutProfileLocation = 'Lahore, Pakistan';
-  static const String aboutMoreButton = 'More about me →';
-  static const String aboutCallTitle = 'Book a call with me';
+  static const String aboutMoreButton = 'More about my work →';
+  static const String aboutCallTitle = 'Core expertise';
   static const String aboutCallDescription =
-      "Let's have a chat about your next project or idea!";
-  static const String aboutScheduleMeeting = 'Schedule a meeting';
-  static const String aboutBookCallButton = 'Book a call';
+      'From architecture planning to release management, I build reliable '
+      'mobile solutions with performance, scalability, and maintainability in '
+      'mind.';
+  static const String aboutBookCallButton = 'Book a discovery call';
 
   // About Page
   static const String aboutPageHeading =
-      'Turning ideas into digital reality — one line of code at a time.';
+      'Engineering scalable mobile apps with clean architecture.';
   static const String aboutPageDescription =
-      "Hi, I’m Muhammad Moeez, a software developer...";
+      'I build and maintain production-ready mobile products using Flutter, '
+      'React Native, Kotlin, and Java. My work covers enterprise apps, '
+      'kiosk systems, logistics flows, e-commerce experiences, and fitness '
+      'platforms with robust API integrations and optimized app performance.';
 
   // Services Section
   static const String servicesSectionTitle = 'Services';
   static const String servicesSectionDescription =
-      'Creating tailored digital solutions that solve real-world problems. '
-      'From concept to launch, I bring ideas to life with precision and '
-      'creativity.';
-  static const String webDevelopmentTitle = 'Web Development';
-  static const String webDevelopmentDescription =
-      'Building responsive, high-performance websites tailored to your needs. '
-      'From sleek portfolios to robust e-commerce platforms, I create digital '
-      'experiences that work seamlessly across devices.';
-  static const String mobileAppDevelopmentTitle = 'Mobile App Development';
-  static const String mobileAppDevelopmentDescription =
-      'Designing and developing intuitive mobile apps for iOS and Android. '
-      "Whether it's a startup idea or an enterprise solution, I bring your "
-      'vision to life with clean code and user-friendly interfaces.';
-  static const String ecommerceDevelopmentTitle = 'E-Commerce Development';
-  static const String ecommerceDevelopmentDescription =
-      'Creating powerful, scalable e-commerce websites that drive sales and '
-      'enhance user experience. From product listings to secure payment '
-      'gateways, I build platforms that grow your business.';
-  static const String customSoftwareSolutionsTitle =
-      'Custom Software Solutions';
-  static const String customSoftwareSolutionsDescription =
-      'Developing bespoke software to solve unique business challenges. From '
-      'automation tools to scalable systems, I deliver tailored solutions that '
-      'drive efficiency and growth.';
-
-  // Tech Stack Section
-  static const String techStackTitle = 'My tech stack';
-  static const String techStackDescription =
-      'Building with: Flutter, React Native, Node.js, and more — tools that '
-      'power modern, scalable solutions.';
-  static const String techFlutter = 'Flutter';
-  static const String techReact = 'React';
-  static const String techTypeScript = 'TypeScript';
-  static const String techFirebase = 'Firebase';
-  static const String techSupabase = 'Supabase';
-  static const String techNode = 'Node.js';
-  static const String techGit = 'Git';
-  static const String techVsCode = 'VS Code';
-  static const String techAndroid = 'Android';
-  static const String techIos = 'iOS';
-
-  // Testimonials Section
-  static const String testimonialsTitle =
-      'Always happy to help creative people launch their projects';
-  static const List<TestimonialItem> testimonials = [
-    TestimonialItem(
-      quote:
-          'Working with them was a game-changer! Their attention to detail and '
-          'ability to deliver on time made our project a huge success. '
-          'Highly recommend!',
-      name: 'Ahmed Khan',
-      role: 'Product Owner @TechFlow',
+      'Mobile engineering services aligned with real production experience.';
+  static const List<ServiceItem> services = [
+    ServiceItem(
+      title: 'Cross-Platform App Development (Flutter & React Native)',
+      description:
+          'Build and scale cross-platform products with strong architecture and native-level UX.',
     ),
-    TestimonialItem(
-      quote:
-          'The app they built for us is not only stunning but also incredibly '
-          'functional. They truly understand how to balance design and '
-          'performance.',
-      name: 'Sarah Williams',
-      role: 'Founder @StartupX',
+    ServiceItem(
+      title: 'Android Native Development',
+      description:
+          'Develop Kotlin/Java Android apps with MVVM, modular structure, and maintainable code.',
     ),
-    TestimonialItem(
-      quote:
-          'Exceptional work! The mobile application exceeded our expectations '
-          'in terms of quality and delivery timeline. A true professional.',
-      name: 'Michael Chen',
-      role: 'CTO @InnovateCo',
+    ServiceItem(
+      title: 'Enterprise & Kiosk Applications',
+      description:
+          'Deliver robust enterprise and kiosk systems for high-availability real-world operations.',
+    ),
+    ServiceItem(
+      title: 'API Integration & Backend Connectivity',
+      description:
+          'Integrate REST APIs, Supabase, and Firebase with resilient networking and data flows.',
+    ),
+    ServiceItem(
+      title: 'App Performance Optimization',
+      description:
+          'Improve startup time, runtime smoothness, memory usage, and app responsiveness.',
+    ),
+    ServiceItem(
+      title: 'App Maintenance & Bug Fixing',
+      description:
+          'Stabilize existing products, resolve critical issues, and improve release confidence.',
+    ),
+    ServiceItem(
+      title: 'App Store Deployment (Play Store & App Store)',
+      description:
+          'Handle release pipelines, store listing readiness, and production deployment support.',
     ),
   ];
 
-  // Contact Section
-  static const String contactHeading = "Let's build your website\ntogether";
-  static const String getInTouchButton = 'Get in touch';
-  static const String contactPageHeading = "Let's build your website together";
+  // Tech Stack Section
+  static const String techStackTitle = 'Tech stack';
+  static const String techStackDescription =
+      'Categorized stack used to build and scale mobile applications.';
+  static const Map<String, List<String>> techStackCategories = {
+    'Mobile': ['Flutter', 'React Native', 'Android Native'],
+    'Languages': ['Dart', 'Kotlin', 'Java', 'TypeScript'],
+    'Architecture': ['Clean Architecture', 'MVVM', 'MVC'],
+    'State Management': ['BLoC', 'Riverpod', 'Redux'],
+    'Backend & APIs': ['REST', 'Dio', 'Retrofit', 'Supabase', 'Firebase'],
+    'Storage': ['Hive', 'Room', 'SharedPreferences', 'MMKV'],
+    'Tools': ['Git', 'GitHub', 'Copilot', 'Cursor'],
+  };
+
+  // Contact / CTA Section
+  static const String contactHeading = "Let's Build Your\nMobile App";
+  static const String getInTouchButton = 'Start your app project';
+  static const String contactPageHeading =
+      "Let's Turn Your App Idea Into Reality";
   static const String contactPageDescription =
-      "Have a project in mind or just want to say hello? I’d love to hear "
-      'from you!';
+      'Need a new mobile app, feature expansion, or architecture cleanup? '
+      'I can help you plan, build, and ship with confidence.';
   static const String contactNameLabel = "What's your name?";
   static const String contactEmailLabel = 'Email';
   static const String contactBudgetLabel = 'Budget range';
@@ -188,39 +176,34 @@ class AppStrings {
     budget10kPlus,
   ];
   static const String contactCurrentWebsiteLabel =
-      'Do you have a current website?';
+      'Do you have an existing app?';
   static const String yes = 'Yes';
   static const String no = 'No';
-  static const String contactHelpLabel = 'How can I help you?';
+  static const String contactHelpLabel = 'What are you building?';
   static const String requiredError = 'Required';
-  static const String sendButton = 'Send';
+  static const String sendButton = 'Send inquiry';
 
   // Footer
   static const String copyrightText = '© 2026 — All rights reserved.';
   static const String emailAddress = 'm.moeez8910@gmail.com';
-  static const String twitterLink = 'Twitter';
   static const String linkedInLink = 'LinkedIn';
   static const String linkedInUrl =
       'https://www.linkedin.com/in/muhammad-moeez-81aa0119b';
-  static const String madeInFlutter = 'Made in Flutter';
+  static const String madeInFlutter = 'Built with Flutter';
 
   // Experience Section
   static const String experienceTitle = 'Experience';
   static const List<String> experienceItems = [
-    'Code Upscale LLC – React Native Developer (2024–Present)',
-    'Skynet Solutionz – Android Developer (2023–2024)',
-    'EvolversTech – Android & React Native Developer',
+    'Code Upscale LLC — Flutter & React Native (Nov 2024 - Present)',
+    'EvolversTech — Android Native Compose (Jun 2024 - Oct 2024)',
+    'Skynet Solutionz (Pvt.) Ltd. — Android Native (Jan 2023 - Apr 2024)',
+    'RNDSOL (Pvt.) Ltd. — Internship (Jan 2023 - Apr 2024)',
   ];
 }
 
-class TestimonialItem {
-  final String quote;
-  final String name;
-  final String role;
+class ServiceItem {
+  final String title;
+  final String description;
 
-  const TestimonialItem({
-    required this.quote,
-    required this.name,
-    required this.role,
-  });
+  const ServiceItem({required this.title, required this.description});
 }

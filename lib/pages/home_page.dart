@@ -50,9 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollFromFragment() {
-    final fragment = Uri.base.fragment.isNotEmpty
-        ? Uri.base.fragment
-        : url_fragment.fragmentNotifier.value;
+    final fragment = url_fragment.currentFragment;
 
     if (!mounted) return;
 
@@ -176,7 +174,7 @@ class _HomePageState extends State<HomePage> {
             onLogoTap: () {
               _fadeOverlayThen(() {
                 context.go(AppStrings.routeHome);
-                url_fragment.setFragment('');
+                url_fragment.setFragment('', replace: true);
                 _scrollController.animateTo(
                   0,
                   duration: const Duration(milliseconds: 500),

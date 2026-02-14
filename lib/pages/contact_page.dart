@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants/app_strings.dart';
 import '../sections/glass_navbar.dart';
 import '../sections/gradient_background.dart';
-import '../widgets/footer_section.dart';
 import '../utils/url_fragment.dart' as url_fragment;
+import '../widgets/footer_section.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -244,12 +244,17 @@ class _ContactPageState extends State<ContactPage> {
           GlassNavbar(
             onLogoTap: () => _fadeOverlayThen(() {
               context.go(AppStrings.routeHome);
-              url_fragment.setFragment('');
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                url_fragment.setFragment('', replace: true);
+              });
             }),
             onWorkTap: () => _fadeOverlayThen(() {
               context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment(AppStrings.fragmentWork);
+                url_fragment.setFragment(
+                  AppStrings.fragmentWork,
+                  replace: true,
+                );
               });
             }),
             onAboutTap: () =>
@@ -257,7 +262,10 @@ class _ContactPageState extends State<ContactPage> {
             onServicesTap: () => _fadeOverlayThen(() {
               context.go(AppStrings.routeHome);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                url_fragment.setFragment(AppStrings.fragmentServices);
+                url_fragment.setFragment(
+                  AppStrings.fragmentServices,
+                  replace: true,
+                );
               });
             }),
             onContactTap: () =>

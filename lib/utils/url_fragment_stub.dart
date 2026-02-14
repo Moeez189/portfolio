@@ -5,7 +5,10 @@ final ValueNotifier<String> fragmentNotifier = ValueNotifier<String>('');
 
 String get currentFragment => fragmentNotifier.value;
 
-void setFragment(String fragment) {
+void setFragment(String fragment, {bool replace = false}) {
+  if (replace) {
+    // Non-web platforms do not manage browser history.
+  }
   fragmentNotifier.value = fragment;
 }
 

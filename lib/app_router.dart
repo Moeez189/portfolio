@@ -36,8 +36,22 @@ CustomTransitionPage<void> _fadePage({
   );
 }
 
+String? _legacySectionRedirect(GoRouterState state) {
+  final path = state.uri.path;
+  final normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+
+  if (normalizedPath == AppStrings.fragmentWork ||
+      normalizedPath == AppStrings.fragmentServices) {
+    return '${AppStrings.routeHome}?section=$normalizedPath';
+  }
+
+  return null;
+}
+
 final GoRouter appRouter = GoRouter(
   debugLogDiagnostics: false,
+  redirect: (BuildContext context, GoRouterState state) =>
+      _legacySectionRedirect(state),
   routes: <RouteBase>[
     GoRoute(
       path: AppStrings.routeHome,
@@ -53,6 +67,16 @@ final GoRouter appRouter = GoRouter(
       path: AppStrings.routeContact,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           _fadePage(state: state, child: const ContactPage()),
+    ),
+    GoRoute(
+      path: '/work',
+      redirect: (BuildContext context, GoRouterState state) =>
+          '${AppStrings.routeHome}?section=${AppStrings.fragmentWork}',
+    ),
+    GoRoute(
+      path: '/services',
+      redirect: (BuildContext context, GoRouterState state) =>
+          '${AppStrings.routeHome}?section=${AppStrings.fragmentServices}',
     ),
   ],
 );

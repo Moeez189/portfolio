@@ -28,6 +28,9 @@ class GlassNavbar extends StatefulWidget {
 
 class _GlassNavbarState extends State<GlassNavbar> {
   bool _menuOpen = false;
+  static const double _mobileNavHeight = 74;
+  static const double _mobileMenuTopOffset = 74;
+  static const double _mobileMenuHeight = 300;
 
   void _toggleMenu() {
     setState(() => _menuOpen = !_menuOpen);
@@ -76,25 +79,31 @@ class _GlassNavbarState extends State<GlassNavbar> {
       top: 24,
       left: isDesktop ? 40 : 16,
       right: isDesktop ? 40 : 16,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          nav,
-          if (!isDesktop)
-            Positioned(
-              top: 74,
-              right: 0,
-              child: _MobileMenu(
-                open: _menuOpen,
-                onWorkTap: widget.onWorkTap,
-                onAboutTap: widget.onAboutTap,
-                onServicesTap: widget.onServicesTap,
-                onContactTap: widget.onContactTap,
-                onResumeTap: widget.onResumeTap,
-                onClose: _closeMenu,
+      child: SizedBox(
+        height: isDesktop
+            ? _mobileNavHeight
+            : (_menuOpen
+                  ? _mobileNavHeight + _mobileMenuHeight
+                  : _mobileNavHeight),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            nav,
+            if (!isDesktop)
+              Positioned(
+                top: _mobileMenuTopOffset,
+                right: 0,
+                child: _MobileMenu(
+                  open: _menuOpen,
+                  onWorkTap: widget.onWorkTap,
+                  onAboutTap: widget.onAboutTap,
+                  onServicesTap: widget.onServicesTap,
+                  onContactTap: widget.onContactTap,
+                  onClose: _closeMenu,
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -172,8 +181,8 @@ class _NavShell extends StatelessWidget {
               ] else ...[
                 const Spacer(),
                 _PillButton(
-                  label: AppStrings.contactLink,
-                  onTap: onContactTap,
+                  label: AppStrings.resumeLink,
+                  onTap: onResumeTap,
                   background: const Color(0xFFFEEC81),
                   foreground: const Color(0xFF1A1A1A),
                 ),
@@ -352,6 +361,7 @@ class _PillButtonState extends State<_PillButton> {
         _pressed = false;
       }),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _pressed = true),
         onTapUp: (_) => setState(() => _pressed = false),
@@ -415,6 +425,7 @@ class _IconButtonState extends State<_IconButton> {
         _pressed = false;
       }),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _pressed = true),
         onTapUp: (_) => setState(() => _pressed = false),
@@ -445,7 +456,6 @@ class _MobileMenu extends StatelessWidget {
   final VoidCallback onAboutTap;
   final VoidCallback onServicesTap;
   final VoidCallback onContactTap;
-  final VoidCallback onResumeTap;
   final VoidCallback onClose;
 
   const _MobileMenu({
@@ -454,7 +464,6 @@ class _MobileMenu extends StatelessWidget {
     required this.onAboutTap,
     required this.onServicesTap,
     required this.onContactTap,
-    required this.onResumeTap,
     required this.onClose,
   });
 
@@ -522,14 +531,6 @@ class _MobileMenu extends StatelessWidget {
                         onContactTap();
                       },
                     ),
-                    const SizedBox(height: 6),
-                    _MobilePrimary(
-                      label: AppStrings.resumeLink,
-                      onTap: () {
-                        onClose();
-                        onResumeTap();
-                      },
-                    ),
                   ],
                 ),
               ),
@@ -565,6 +566,7 @@ class _MobileMenuItemState extends State<_MobileMenuItem> {
         _pressed = false;
       }),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _pressed = true),
         onTapUp: (_) => setState(() => _pressed = false),
@@ -624,6 +626,7 @@ class _MobilePrimaryState extends State<_MobilePrimary> {
         _pressed = false;
       }),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _pressed = true),
         onTapUp: (_) => setState(() => _pressed = false),

@@ -80,6 +80,8 @@ class AppStrings {
     'Domain experience in e-commerce, fitness, and logistics apps',
   ];
   static const String aboutProfileName = 'Muhammad Moeez';
+  static const String aboutProfileRole = 'Software Engineer';
+  static const String aboutProfileImagePath = 'assets/images/profile.png';
   static const String aboutProfileLocation = 'Lahore, Pakistan';
   static const String aboutMoreButton = 'More about my work →';
   static const String aboutCallTitle = 'Core expertise';
